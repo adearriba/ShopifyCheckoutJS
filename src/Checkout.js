@@ -23,14 +23,15 @@ export default class Checkout {
     _getFields(){
         let fields = [];
 
-        $('input').each( (_k, v) => {
-            if(typeof v.id !== 'string' || v.id.length == 0){
-                return true;
+        const fieldNodes = document.querySelectorAll('input');
+        fieldNodes.forEach(el => {
+            if(typeof el.id !== 'string' || el.id.length == 0){
+                return;
             }
 
-            switch (v.type) {
+            switch (el.type) {
                 case 'text':
-                    fields.push(new TextField(v.id));
+                    fields.push(new TextField(el.id));
                     break;
                 default:
                     break;
