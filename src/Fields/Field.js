@@ -33,7 +33,7 @@ export default class Field {
         this.element = input.parentElement.parentElement;
         const label = this.element.querySelector('label');
 
-        this.type = input.tagName;
+        this.type = input.type;
         this.name = input.name;
         this.label = label.innerText;
     }
