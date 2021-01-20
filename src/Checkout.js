@@ -18,10 +18,6 @@ export default class Checkout {
 
         document.addEventListener('page:load', this._onLoad.bind(this), false);
         document.addEventListener('page:change', this._onLoad.bind(this), false);
-
-        this.on('load:information', (ev) => {
-            console.log(ev);
-        });
     }
 
     _getFields(){
@@ -74,6 +70,8 @@ export default class Checkout {
     }
 
     _onLoad(event){
+        this._triggerEvent('load');
+
         try{
             switch (this.currentStep) {
                 case this.Steps.INFORMATION:
