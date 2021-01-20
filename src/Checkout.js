@@ -1,3 +1,4 @@
+import Field from './Fields/Field.js';
 import TextField from './Fields/TextField.js';
 
 export default class Checkout {
@@ -31,6 +32,9 @@ export default class Checkout {
 
             switch (el.type) {
                 case 'text':
+                    fields.push(new TextField(el.id));
+                    break;
+                case 'email':
                     fields.push(new TextField(el.id));
                     break;
                 default:
