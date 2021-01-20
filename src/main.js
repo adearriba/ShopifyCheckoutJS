@@ -1,4 +1,3 @@
-import { CheckoutManager } from './CheckoutManager.js';
-window.Checkout = window.Checkout || {};
+import Checkout from './Checkout.js';
 
-const checkout = new CheckoutManager();
+var $checkout = new Checkout();
