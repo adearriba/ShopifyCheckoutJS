@@ -17,14 +17,14 @@ $checkout.on('load', function(e) {
 The different types of events right now are:
 |Event name|Descripcion|
 |---|---|
-|load|Whenever a new step is loaded or changed. This is triggered in every Shopify´s page:load or page:change event.|
-|load:information|Information step is loaded|
-|load:shipping|Shipping step is loaded|
-|load:payment|Payment step is loaded|
-|load:processing|Processing page is loaded|
-|load:thankyou|Thank you page is loaded|
-|load:orderstatus|Order status page is loaded|
-|load:stockproblems|Stock problems page is loaded|
+|load|This is triggered for convenience in every Shopify´s ``page:load`` or ``page:change`` event.|
+|load:information|**Information** step is loaded|
+|load:shipping|**Shipping** step is loaded|
+|load:payment|**Payment** step is loaded|
+|load:processing|**Processing** page is loaded|
+|load:thankyou|**Thank you** page is loaded|
+|load:orderstatus|**Order status** page is loaded|
+|load:stockproblems|**Stock problems** page is loaded|
 |error|When an exception is catch inside a callback of any triggered event|
 
 # Fields
