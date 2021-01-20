@@ -11,7 +11,7 @@ export default class Field {
         this.type = type;
         this.label = label;
         this.name = `checkout[attributes][${name}]`;
-        this.id = `checkout_attributes_${this.name}`;
+        this.id = `checkout_attributes_${name}`;
 
         this.element = document.createElement('div');
         this.element.classList.add('field');
@@ -33,6 +33,7 @@ export default class Field {
         this.element = input.parentElement.parentElement;
         const label = this.element.querySelector('label');
 
+        this.id = id;
         this.type = input.type;
         this.name = input.name;
         this.label = label.innerText;
