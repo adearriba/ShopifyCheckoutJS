@@ -1,13 +1,42 @@
 import NotValidFieldException from '../Exceptions/NotValidFieldException.js';
 import NotImplementedError from '../Exceptions/NotImplementedError.js';
 
+class FieldRetriever {
+    retrieve(inputElement){
+        let possibleParentsClasses = [
+            '.field',
+            '.checkbox-wrapper'
+        ];
+
+        let element = null;
+        let found = possibleParentsClasses.some( className => {
+            element = inputElement.closest(className);
+            if(element != null) return true;
+        });
+
+        if(found){ 
+            if(!element.classList.contains('field')) {
+                let field = document.createElement('div');
+                let parent = element.parentElement;
+
+                field.classList.add('field');
+                field.appendChild(element);
+                parent.appendChild(field);
+                
+                return field;
+            }else{
+                return element;
+            }
+        }
+        else throw new NotValidFieldException();
+    }
+}
+
 export default class Field extends HTMLDivElement{
     constructor(args){
         if(typeof args == 'string'){       
             let input = document.querySelector(`#${args}`);
-            let element = input.closest('.field');
-            
-            if(element == null) throw new NotValidFieldException();
+            let element = new FieldRetriever().retrieve(input);
 
             Object.setPrototypeOf(element, Field.prototype);
             return element;

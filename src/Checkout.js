@@ -1,6 +1,7 @@
 import NotValidFieldException from './Exceptions/NotValidFieldException.js';
 import Field from './Fields/Field.js';
 import TextField from './Fields/TextField.js';
+import CheckboxField from './Fields/CheckboxField.js';
 
 export default class Checkout {
     constructor(){
@@ -40,6 +41,11 @@ export default class Checkout {
                     break;
                 case 'tel':
                     fields.push(new TextField(el.id));
+                    break;
+                case 'checkbox':
+                    fields.push(new CheckboxField(el.id));
+                    break;
+                case 'hidden':
                     break;
                 default:
                     try{
