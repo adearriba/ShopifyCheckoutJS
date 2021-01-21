@@ -7,6 +7,7 @@ A little code for having a better experience manipulating Shopify´s Checkout vi
 	- [2.1. Events](#21-events)
 - [3. Fields](#3-fields)
 	- [3.1. TextFields](#31-textfields)
+	- [3.1. Checkboxs](#31-checkboxs)
 
 # 2. $checkout object
 The `$checkout` object is created to help with the different tasks manipulating Shopify´s checkout page.
@@ -71,4 +72,18 @@ addressField.insertAdjacentElement('afterend', field);
 $('[data-address-field="address1"]').after(field);
 ```
 
+## 3.1. Checkboxs
 
+**Create Checkbox**
+```javascript
+var field = new CheckboxField({
+	name:'dni', 
+	label:'DNI', //optional
+	checked: true, // default: false
+});
+```
+
+**Is checked?**
+```javascript
+console.log(field.checked);
+```

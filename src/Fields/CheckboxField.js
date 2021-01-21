@@ -2,7 +2,6 @@ import Field from './Field.js';
 
 export default class CheckboxField extends Field{
     constructor(args){
-        debugger;
         if (typeof args == 'object'){
             args.type = 'checkbox';
 
@@ -37,5 +36,10 @@ export default class CheckboxField extends Field{
 
         div.appendChild(input);
         wrapper.insertBefore(div, label);
+    }
+
+    get checked(){
+        let checkbox = this.querySelector('input[type="checkbox"]');
+        return checkbox.checked;
     }
 }
