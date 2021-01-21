@@ -17,7 +17,7 @@ export default class CheckboxField extends Field{
     }
 
     addField(checked){
-        let wrapper = this.querySelector('.checkbox-wrapper');
+        let wrapper = this.querySelector(`.${this.wrapperClass}`);
 
         let label = wrapper.querySelector('label');
         label.classList.remove(...label.classList);
@@ -41,5 +41,10 @@ export default class CheckboxField extends Field{
     get checked(){
         let checkbox = this.querySelector('input[type="checkbox"]');
         return checkbox.checked;
+    }
+
+    set checked(checked){
+        let checkbox = this.querySelector('input[type="checkbox"]');
+        checkbox.checked = checked;
     }
 }

@@ -15,20 +15,36 @@ class FieldRetriever {
         });
 
         if(found){ 
+            let field = {};
             if(!element.classList.contains('field')) {
-                let field = document.createElement('div');
+                field = document.createElement('div');
                 let parent = element.parentElement;
 
                 field.classList.add('field');
                 field.appendChild(element);
                 parent.appendChild(field);
-                
-                return field;
-            }else{
-                return element;
+            }else {
+                field = element;
             }
+            this._setFieldPropierties(field);
+            return field;
         }
         else throw new NotValidFieldException();
+    }
+
+    _setFieldPropierties(field){
+        let possibleWrapperClasses = [
+            '.field__input-wrapper',
+            '.checkbox-wrapper'
+        ];
+        
+        possibleWrapperClasses.some( className => {
+            let element = field.querySelector(className);
+            if(element != null){
+                field.wrapperClass = className;
+                return true;
+            }
+        });
     }
 }
 
@@ -44,17 +60,19 @@ export default class Field extends HTMLDivElement{
             const { name, label = name } = args;
             let fieldId = `checkout_attributes_${args.name}`;
             let fieldName = `checkout[attributes][${args.name}]`;
+            let wrapperClass = '';
 
             let element = document.createElement('div');
             element.classList.add('field');
 
             let wrapperElement = document.createElement('div');
-            if(args.type == 'checkbox'){
-                wrapperElement.classList.add('checkbox-wrapper'); 
+            if(args.type == 'checkbox') {
+                 wrapperClass = 'checkbox-wrapper'; 
+            } else { 
+                wrapperClass = 'field__input-wrapper'; 
             }
-            else { 
-                wrapperElement.classList.add('field__input-wrapper'); 
-            }
+
+            wrapperElement.classList.add(wrapperClass);
 
             let labelElement = document.createElement('label');
             labelElement.classList.add('field__label', 'field__label--visible');
@@ -67,12 +85,36 @@ export default class Field extends HTMLDivElement{
             Object.setPrototypeOf(element, Field.prototype);
             return Object.assign(element, {
                 fieldName: fieldName,
-                fieldId: fieldId
+                fieldId: fieldId,
+                wrapperClass: wrapperClass,
             });
         }
     }
 
     addField(args){
         throw new NotImplementedError();
+    }
+
+    showError(message){
+        debugger;
+        this.classList.add('field--error');
+
+        if(message && message.length > 0){
+            let errorElement = document.createElement('p');
+            errorElement.classList.add('field__message', 'field__message--error');
+            errorElement.innerHTML = message;
+
+            this.appendChild(errorElement);
+        }
+    }
+
+    removeError(){
+        debugger;
+        this.classList.remove('field--error');
+
+        let errorElements = this.querySelectorAll('.field__message--error');
+        errorElements.forEach( (element) => {
+            element.remove();
+        });
     }
 }

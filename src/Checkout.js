@@ -2,6 +2,7 @@ import NotValidFieldException from './Exceptions/NotValidFieldException.js';
 import Field from './Fields/Field.js';
 import TextField from './Fields/TextField.js';
 import CheckboxField from './Fields/CheckboxField.js';
+import DropdownField from './Fields/DropdownField.js';
 
 export default class Checkout {
     constructor(){
@@ -26,7 +27,7 @@ export default class Checkout {
     _getFields(){
         let fields = [];
 
-        const fieldNodes = document.querySelectorAll('input');
+        const fieldNodes = document.querySelectorAll('input, select');
         fieldNodes.forEach(el => {
             if(typeof el.id !== 'string' || el.id.length == 0){
                 return;
@@ -44,6 +45,9 @@ export default class Checkout {
                     break;
                 case 'checkbox':
                     fields.push(new CheckboxField(el.id));
+                    break;
+                case 'select-one':
+                    fields.push(new DropdownField(el.id));
                     break;
                 case 'hidden':
                     break;

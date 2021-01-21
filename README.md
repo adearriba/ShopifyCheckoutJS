@@ -6,8 +6,9 @@ A little code for having a better experience manipulating Shopify´s Checkout vi
 - [2. $checkout object](#2-checkout-object)
 	- [2.1. Events](#21-events)
 - [3. Fields](#3-fields)
-	- [3.1. TextFields](#31-textfields)
-	- [3.2. Checkboxs](#32-checkboxs)
+	- [3.1. General field methods](#31-general-field-methods)
+	- [3.2. TextFields](#32-textfields)
+	- [3.3. Checkboxs](#33-checkboxs)
 
 # 2. $checkout object
 The `$checkout` object is created to help with the different tasks manipulating Shopify´s checkout page.
@@ -39,9 +40,27 @@ The different types of events right now are:
 |error|When an exception is catch inside a callback of any triggered event|
 
 # 3. Fields
-To-Do...
+Different types of fields can be created. 
 
-## 3.1. TextFields
+## 3.1. General field methods
+
+**Add an error message and color**
+
+You can add a red border to the input and a message below it. The message can contain HTML elements in it.
+
+```javascript
+field.showError('Testing error message with <b>bold</b> text!');
+```
+
+**Remove errors**
+
+Remove the error state.
+
+```javascript
+field.removeError();
+```
+
+## 3.2. TextFields
 
 **Create TextFields**
 ```javascript
@@ -72,7 +91,7 @@ addressField.insertAdjacentElement('afterend', field);
 $('[data-address-field="address1"]').after(field);
 ```
 
-## 3.2. Checkboxs
+## 3.3. Checkboxs
 
 **Create Checkbox**
 ```javascript
@@ -83,7 +102,8 @@ var field = new CheckboxField({
 });
 ```
 
-**Is checked?**
+**Get and set checked state**
 ```javascript
+field.checked = true;
 console.log(field.checked);
 ```
