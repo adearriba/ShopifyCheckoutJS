@@ -1,3 +1,4 @@
+import NotValidFieldException from './Exceptions/NotValidFieldException.js';
 import Field from './Fields/Field.js';
 import TextField from './Fields/TextField.js';
 
@@ -41,7 +42,12 @@ export default class Checkout {
                     fields.push(new TextField(el.id));
                     break;
                 default:
-                    fields.push(new Field(el.id));
+                    try{
+                        fields.push(new Field(el.id));
+                    }catch(e){
+                        if(e instanceof NotValidFieldException) return;
+                        else throw e;
+                    }
                     break;
             }
         });
@@ -79,9 +85,9 @@ export default class Checkout {
     }
 
     _onLoad(event){
-        this._triggerEvent('load');
-
         try{
+            this._triggerEvent('load');
+
             switch (this.currentStep) {
                 case this.Steps.INFORMATION:
                     this._triggerEvent('load:information');

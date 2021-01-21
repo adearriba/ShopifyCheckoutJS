@@ -1,46 +1,37 @@
 import Field from './Field.js';
 
 export default class TextField extends Field{
-    create({ type = 'text', name, label = name, placeholder = '', size = 30, defaultValue = '', tooltip }){
-        super.create({ type: type, name: name, label: label });
-        this.placeholder = placeholder;
-        this.size = size;
-        this.defaultValue = defaultValue;
+    constructor(args){
+        super(args);
+        Object.setPrototypeOf(this, TextField.prototype);
 
-        const wrapper = this.element.querySelector('.field__input-wrapper');
-        this.addFieldTo(wrapper);
-
-        if(typeof tooltip == 'string'){
-            this.addTooltip({ text: tooltip });
+        if (typeof args == 'object'){
+            this.addField(args);
         }
     }
 
-    createFromSelector(id){
-        super.createFromSelector(id);
-        const input = this.element.querySelector(`#${id}`);
-
-        this.placeholder = input.placeholder;
-        this.size = input.size;
-        this.defaultValue = input.value;
-    }
-
-
-    addFieldTo(element){
+    addField(args){
         let input = document.createElement('input');
         input.classList.add('field__input');
-        input.placeholder = this.placeholder;
-        input.size = this.size;
-        input.type = 'text';
-        input.value = this.defaultValue;
-        input.name = this.name;
-        input.id = this.id;
+        input.placeholder = (args.placeholder) ? args.placeholder : '';
+        input.size = (args.size) ? args.size : 30;
+        input.type = (args.type) ? args.type : 'text';
+        input.value = (args.defaultValue) ? args.defaultValue : '';
 
-        element.appendChild(input);
+        input.name = this.fieldName;
+        input.id = this.fieldId;
+
+        this.querySelector('.field__input-wrapper').appendChild(input);
+
+        if(typeof args.tooltip == 'string'){
+            this.addTooltip(args.tooltip);
+        }
     }
 
-    addTooltip({ text = '', icon = '#question' }){
+    addTooltip(text = '', icon = '#question'){
         this.removeTooltip();
-        const wrapper = this.element.querySelector('.field__input-wrapper');
+
+        const wrapper = this.querySelector('.field__input-wrapper');
         wrapper.classList.add('field__input-wrapper--icon-right');
 
         let tooltipDiv = document.createElement('div');
@@ -48,7 +39,7 @@ export default class TextField extends Field{
         tooltipDiv.classList.add('field__icon', 'has-tooltip');
 
         let tooltipSpan = document.createElement('span');
-        tooltipSpan.id = `tooltip-for-${this.name}`;
+        tooltipSpan.id = `tooltip-for-${this.fieldId}`;
         tooltipSpan.classList.add('tooltip');
         tooltipSpan.innerText = text;
 
@@ -70,12 +61,10 @@ export default class TextField extends Field{
         tooltipDiv.appendChild(iconDiv)
 
         wrapper.appendChild(tooltipDiv);
-
-        return this;
     }
 
     removeTooltip(){
-        const wrapper = this.element.querySelector('.field__input-wrapper');
+        const wrapper = this.querySelector('.field__input-wrapper');
         const tooltips = wrapper.querySelectorAll('.field__icon');
 
         wrapper.classList.remove('field__input-wrapper--icon-right');

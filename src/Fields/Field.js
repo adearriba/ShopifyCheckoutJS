@@ -1,41 +1,44 @@
-export default class Field {
+import NotValidFieldException from '../Exceptions/NotValidFieldException.js';
+import NotImplementedError from '../Exceptions/NotImplementedError.js';
+
+export default class Field extends HTMLDivElement{
     constructor(args){
-        if(typeof args == 'string'){
-            this.createFromSelector(args);
+        if(typeof args == 'string'){       
+            let input = document.querySelector(`#${args}`);
+            let element = input.closest('.field');
+            
+            if(element == null) throw new NotValidFieldException();
+
+            Object.setPrototypeOf(element, Field.prototype);
+            return element;
         }else if (typeof args == 'object'){
-            this.create(args);
+            const { name, label = name } = args;
+            let fieldId = `checkout_attributes_${args.name}`;
+            let fieldName = `checkout[attributes][${args.name}]`;
+
+            let element = document.createElement('div');
+            element.classList.add('field');
+
+            let wrapperElement = document.createElement('div');
+            wrapperElement.classList.add('field__input-wrapper');
+
+            let labelElement = document.createElement('label');
+            labelElement.classList.add('field__label', 'field__label--visible');
+            labelElement.innerText = label;
+            labelElement.htmlFor = fieldId;
+
+            wrapperElement.appendChild(labelElement);
+            element.appendChild(wrapperElement);
+
+            Object.setPrototypeOf(element, Field.prototype);
+            return Object.assign(element, {
+                fieldName: fieldName,
+                fieldId: fieldId
+            });
         }
     }
 
-    create({ type, name, label = name }){
-        this.type = type;
-        this.label = label;
-        this.name = `checkout[attributes][${name}]`;
-        this.id = `checkout_attributes_${name}`;
-
-        this.element = document.createElement('div');
-        this.element.classList.add('field');
-
-        let wrapperElement = document.createElement('div');
-        wrapperElement.classList.add('field__input-wrapper');
-
-        let labelElement = document.createElement('label');
-        labelElement.classList.add('field__label', 'field__label--visible');
-        labelElement.innerText = this.label;
-        labelElement.htmlFor = this.id;
-
-        wrapperElement.appendChild(labelElement);
-        this.element.appendChild(wrapperElement);
-    }
-
-    createFromSelector(id){
-        const input = document.querySelector(`#${id}`);
-        this.element = input.parentElement.parentElement;
-        const label = this.element.querySelector('label');
-
-        this.id = id;
-        this.type = input.type;
-        this.name = input.name;
-        this.label = (label) ? label.innerText : '';
+    addField(args){
+        throw new NotImplementedError();
     }
 }
