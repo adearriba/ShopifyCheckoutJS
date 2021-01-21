@@ -2,29 +2,40 @@ import Field from './Field.js';
 
 export default class CheckboxField extends Field{
     constructor(args){
-        super(args);
-        Object.setPrototypeOf(this, CheckboxField.prototype);
+        debugger;
+        if (typeof args == 'object'){
+            args.type = 'checkbox';
 
-        if (typeof args == 'undefined' || typeof args == 'boolean'){
-            this.addField(args);
+            super(args);
+            Object.setPrototypeOf(this, CheckboxField.prototype);
+
+            let checked = (typeof args.checked == 'boolean') ? args.checked : false;
+            this.addField(checked);
+        }else{
+            super(args);
+            Object.setPrototypeOf(this, CheckboxField.prototype);
         }
     }
 
-    addField(args){
+    addField(checked){
         let wrapper = this.querySelector('.checkbox-wrapper');
 
         let label = wrapper.querySelector('label');
         label.classList.remove(...label.classList);
         label.classList.add('checkbox__label');
 
+        let div = document.createElement('div');
+        div.classList.add('checkbox__input');
+
         let input = document.createElement('input');
         input.classList.add('input-checkbox');
         input.type = 'checkbox';
-        input.checked = args;
+        input.checked = checked;
 
         input.name = this.fieldName;
         input.id = this.fieldId;
 
-        wrapper.insertBefore(input, label);
+        div.appendChild(input);
+        wrapper.insertBefore(div, label);
     }
 }

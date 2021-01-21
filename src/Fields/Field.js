@@ -49,7 +49,12 @@ export default class Field extends HTMLDivElement{
             element.classList.add('field');
 
             let wrapperElement = document.createElement('div');
-            wrapperElement.classList.add('field__input-wrapper');
+            if(args.type == 'checkbox'){
+                wrapperElement.classList.add('checkbox-wrapper'); 
+            }
+            else { 
+                wrapperElement.classList.add('field__input-wrapper'); 
+            }
 
             let labelElement = document.createElement('label');
             labelElement.classList.add('field__label', 'field__label--visible');
