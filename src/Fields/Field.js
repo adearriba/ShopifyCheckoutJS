@@ -36,6 +36,6 @@ export default class Field {
         this.id = id;
         this.type = input.type;
         this.name = input.name;
-        this.label = label.innerText;
+        this.label = (label) ? label.innerText : '';
     }
 }

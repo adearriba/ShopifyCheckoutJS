@@ -1,7 +1,7 @@
 import Field from './Field.js';
 
 export default class TextField extends Field{
-    create({ type, name, label = name, placeholder = '', size = 30, defaultValue = '', tooltip }){
+    create({ type = 'text', name, label = name, placeholder = '', size = 30, defaultValue = '', tooltip }){
         super.create({ type: type, name: name, label: label });
         this.placeholder = placeholder;
         this.size = size;
