@@ -37,7 +37,11 @@ export default class Checkout {
                 case 'email':
                     fields.push(new TextField(el.id));
                     break;
+                case 'tel':
+                    fields.push(new TextField(el.id));
+                    break;
                 default:
+                    fields.push(new Field(el.id));
                     break;
             }
         });
