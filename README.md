@@ -1,7 +1,3 @@
-
-# 1. ShopifyCheckoutJS
-A little code for having a better experience manipulating Shopify´s Checkout via JS.
-
 - [1. ShopifyCheckoutJS](#1-shopifycheckoutjs)
 - [2. $checkout object](#2-checkout-object)
 	- [2.1. Events](#21-events)
@@ -10,6 +6,10 @@ A little code for having a better experience manipulating Shopify´s Checkout vi
 	- [3.2. TextFields](#32-textfields)
 	- [3.3. Checkboxs](#33-checkboxs)
 	- [3.4. Dropdowns](#34-dropdowns)
+
+
+# 1. ShopifyCheckoutJS
+A little code for having a better experience manipulating Shopify´s Checkout via JS.
 
 # 2. $checkout object
 The `$checkout` object is created to help with the different tasks manipulating Shopify´s checkout page.

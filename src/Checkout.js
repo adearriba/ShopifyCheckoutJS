@@ -6,10 +6,6 @@ import DropdownField from './Fields/DropdownField.js';
 
 export default class Checkout {
     constructor(){
-        this.lastStep = this._getLastStep();
-        this.currentStep = this._getCurrentStep();
-        this.fields = this._getFields();
-        
         this.Steps = {
             INFORMATION: 'contact_information',
             SHIPPING: 'shipping_method',
@@ -22,6 +18,12 @@ export default class Checkout {
 
         document.addEventListener('page:load', this._onLoad.bind(this), false);
         document.addEventListener('page:change', this._onLoad.bind(this), false);
+        document.addEventListener('checkout:field:created', this._fieldCreated.bind(this), false);
+        document.addEventListener('checkout:field:removed', this._fieldRemoved.bind(this), false);
+
+        this.lastStep = this._getLastStep();
+        this.currentStep = this._getCurrentStep();
+        this.fields = this._getFields();
     }
 
     _getFields(){
@@ -35,25 +37,25 @@ export default class Checkout {
 
             switch (el.type) {
                 case 'text':
-                    fields.push(new TextField(el.id));
+                    fields[el.id] = new TextField(el.id);
                     break;
                 case 'email':
-                    fields.push(new TextField(el.id));
+                    fields[el.id] = new TextField(el.id);
                     break;
                 case 'tel':
-                    fields.push(new TextField(el.id));
+                    fields[el.id] = new TextField(el.id);
                     break;
                 case 'checkbox':
-                    fields.push(new CheckboxField(el.id));
+                    fields[el.id] = new CheckboxField(el.id);
                     break;
                 case 'select-one':
-                    fields.push(new DropdownField(el.id));
+                    fields[el.id] = new DropdownField(el.id);
                     break;
                 case 'hidden':
                     break;
                 default:
                     try{
-                        fields.push(new Field(el.id));
+                        fields[el.id] = new Field(el.id);
                     }catch(e){
                         if(e instanceof NotValidFieldException) return;
                         else throw e;
@@ -130,6 +132,27 @@ export default class Checkout {
                 error: ex
             });
         }
+    }
+
+    _fieldCreated(event){
+        debugger;
+        
+        let field = event.detail;
+        let input = field.querySelector(`[id^="checkout_"]`);
+
+        if(this.fields && !this.fields.hasOwnProperty(input.id)){
+            this.fields[input.id] = field;
+        }
+    }
+
+    _fieldRemoved(event){
+        debugger;
+        let field = event.detail;
+        let input = field.querySelector(`[id^="checkout_"]`);
+
+        if(this.fields && this.fields.hasOwnProperty(input.id)){
+            delete this.fields[input.id];
+        }        
     }
 
     on(event, callback){

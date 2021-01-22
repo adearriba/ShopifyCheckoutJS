@@ -83,12 +83,19 @@ export default class Field extends HTMLDivElement{
             element.appendChild(wrapperElement);
 
             Object.setPrototypeOf(element, Field.prototype);
-            return Object.assign(element, {
+            let field = Object.assign(element, {
                 fieldName: fieldName,
                 fieldId: fieldId,
                 wrapperClass: wrapperClass,
             });
+            
+            return field;
         }
+    }
+
+    created(){
+        let event = new CustomEvent(`checkout:field:created`, { detail: this });
+        document.dispatchEvent(event);
     }
 
     addField(args){
@@ -115,5 +122,11 @@ export default class Field extends HTMLDivElement{
         errorElements.forEach( (element) => {
             element.remove();
         });
+    }
+
+    remove(){
+        let event = new CustomEvent(`checkout:field:removed`, { detail: this });
+        document.dispatchEvent(event);
+        super.remove();
     }
 }

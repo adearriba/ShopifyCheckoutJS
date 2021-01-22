@@ -6,8 +6,10 @@ export default class TextField extends Field{
         Object.setPrototypeOf(this, TextField.prototype);
 
         if (typeof args == 'object'){
-            this.addField(args);
+            this.addField(args);    
         }
+
+        this.created();    
     }
 
     addField(args){

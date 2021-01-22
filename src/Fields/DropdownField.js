@@ -8,6 +8,8 @@ export default class DropdownField extends Field{
         if (typeof args == 'object'){
             this.addField(args);
         }
+
+        this.created();
     }
 
     addField(args){

@@ -14,6 +14,8 @@ export default class CheckboxField extends Field{
             super(args);
             Object.setPrototypeOf(this, CheckboxField.prototype);
         }
+
+        this.created();
     }
 
     addField(checked){
