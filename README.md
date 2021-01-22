@@ -41,7 +41,14 @@ The different types of events right now are:
 |error|When an exception is catch inside a callback of any triggered event|
 
 # 3. Fields
-Different types of fields can be created. 
+Different types of fields can be created. Whenever a field is created with its constructor, it is added to the ``$checkout.fields`` dictionary with its key being ``'checkout_attributes_' + ${name}``.
+
+For Shopify´s original form fields, they are registered in the dictionary with the input´s id. For example, the address line 1 would be:
+
+```javascript
+$checkout.fields["checkout_billing_address_address1"]
+```
+
 
 ## 3.1. General field methods
 
@@ -75,6 +82,9 @@ var field = new TextField({
 	defaultValue: '', 
 	tooltip: 'Content of the tooltip'
 });
+
+//Accesible also from $checkout.fields
+console.log($checkout.fields["checkout_attributes_dni"]);
 ```
 
 **Add tooltip to field**
