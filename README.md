@@ -39,6 +39,8 @@ The different types of events right now are:
 |load:orderstatus|**Order status** page is loaded|
 |load:stockproblems|**Stock problems** page is loaded|
 |error|When an exception is catch inside a callback of any triggered event|
+|field:created|When a field is created. The field reference is inside the ``event.detail`` property.|
+|field:removed|When a field is removed. The field reference is inside the ``event.detail`` property.|
 
 # 3. Fields
 Different types of fields can be created. Whenever a field is created with its constructor, it is added to the ``$checkout.fields`` dictionary with its key being ``'checkout_attributes_' + ${name}``.
