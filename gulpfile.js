@@ -14,18 +14,7 @@ const babel = require('gulp-babel');
 
 async function build() {
     const bundle = await rollup.rollup({
-        input: './src/main.js',
-        plugins: [
-            babel({ 
-                presets: [
-                    "@babel/preset-env",
-                    {
-                        "modules": true
-                    }
-                ],
-                babelHelpers: 'bundled' 
-            })
-        ]
+        input: './src/main.js'
     });
 
     return await bundle.write({
@@ -38,6 +27,12 @@ async function build() {
 
 function minify() {
     return src(destFile)
+        .pipe(babel({
+            presets: [
+                //"@babel/preset-env"
+            ]   
+        }))
+        .pipe(dest(destFolder))
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(dest(destFolder));

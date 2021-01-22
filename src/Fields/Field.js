@@ -96,7 +96,7 @@ export default class Field extends HTMLDivElement{
     }
 
     showError(message){
-        debugger;
+        this.removeError();
         this.classList.add('field--error');
 
         if(message && message.length > 0){
@@ -109,7 +109,6 @@ export default class Field extends HTMLDivElement{
     }
 
     removeError(){
-        debugger;
         this.classList.remove('field--error');
 
         let errorElements = this.querySelectorAll('.field__message--error');
