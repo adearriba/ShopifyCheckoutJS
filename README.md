@@ -1,5 +1,5 @@
 # ShopifyCheckoutJS <!-- omit in toc -->
-A little code for having a better experience manipulating Shopify´s Checkout via JS.
+A little library that will help you manipulate Shopify´s Checkout via JS.
 
 - [1. Build JS](#1-build-js)
 - [2. $checkout object](#2-checkout-object)
