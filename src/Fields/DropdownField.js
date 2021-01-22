@@ -58,4 +58,9 @@ export default class DropdownField extends Field{
         wrapper.appendChild(input);
         wrapper.appendChild(arrow);
     }
+
+    get value(){
+        let checkbox = this.querySelector('select');
+        return checkbox.value;
+    }
 }

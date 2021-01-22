@@ -9,6 +9,7 @@ A little code for having a better experience manipulating Shopify´s Checkout vi
 	- [3.1. General field methods](#31-general-field-methods)
 	- [3.2. TextFields](#32-textfields)
 	- [3.3. Checkboxs](#33-checkboxs)
+	- [3.4. Dropdowns](#34-dropdowns)
 
 # 2. $checkout object
 The `$checkout` object is created to help with the different tasks manipulating Shopify´s checkout page.
@@ -65,13 +66,14 @@ field.removeError();
 **Create TextFields**
 ```javascript
 var field = new TextField({
-	type: 'text', //optional
-	name:'dni', 
-	placeholder:'DNI', //optional
-	label:'DNI', //optional
-	size: 30, //optional
-	defaultValue: '', //optional
-	tooltip: 'Content of the tooltip' //optional
+	name:'dni',
+	//Optional properties
+	type: 'text', 
+	placeholder:'DNI', 
+	label:'DNI',
+	size: 30, 
+	defaultValue: '', 
+	tooltip: 'Content of the tooltip'
 });
 ```
 
@@ -97,7 +99,8 @@ $('[data-address-field="address1"]').after(field);
 ```javascript
 var field = new CheckboxField({
 	name:'dni', 
-	label:'DNI', //optional
+	//Optional properties
+	label:'DNI',
 	checked: true, // default: false
 });
 ```
@@ -106,4 +109,28 @@ var field = new CheckboxField({
 ```javascript
 field.checked = true;
 console.log(field.checked);
+```
+
+## 3.4. Dropdowns
+
+**Create a dropdown/select**
+```javascript
+var select = new DropdownField({
+    name: 'selections',
+    options: [
+        { text: 'option1', value: 1 },
+        { text: 'option2', value: 2 },
+        { text: 'option3', value: 3 },
+        { text: 'option4', value: 4 },
+        { text: 'option5', value: 5 },
+	],
+	//optional properties
+	defaultValue: 'First & disabled Option', 
+	label:'Selections',
+});
+```
+
+**Get selected value**
+```javascript
+console.log(select.value);
 ```
