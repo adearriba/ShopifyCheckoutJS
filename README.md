@@ -48,7 +48,11 @@ Different types of fields can be created. Whenever a field is created with its c
 For Shopify´s original form fields, they are registered in the dictionary with the input´s id. For example, the address line 1 would be:
 
 ```javascript
+//Shopify´s form fields using their id
 $checkout.fields["checkout_billing_address_address1"]
+
+//$checkout created fields using the field´s name given upon creation
+$checkout.fields["checkout_attributes_fieldName"]
 ```
 
 
