@@ -50,17 +50,31 @@ class FieldRetriever {
 
 export default class Field extends HTMLDivElement{
     constructor(args){
+        let wrapperClass = '';
+
         if(typeof args == 'string'){       
             let input = document.querySelector(`#${args}`);
             let element = new FieldRetriever().retrieve(input);
 
             Object.setPrototypeOf(element, Field.prototype);
-            return element;
+            if(element.type == 'checkbox') {
+                    wrapperClass = 'checkbox-wrapper'; 
+            } else { 
+                wrapperClass = 'field__input-wrapper'; 
+            }
+
+            let field = Object.assign(element, {
+                fieldName: element.name,
+                fieldId: element.id,
+                wrapperClass: wrapperClass,
+                inputSelector: '[id^="checkout_"]',
+            });
+
+            return field;
         }else if (typeof args == 'object'){
             const { name, label = name } = args;
             let fieldId = `checkout_attributes_${args.name}`;
             let fieldName = `checkout[attributes][${args.name}]`;
-            let wrapperClass = '';
 
             let element = document.createElement('div');
             element.classList.add('field');
@@ -87,6 +101,7 @@ export default class Field extends HTMLDivElement{
                 fieldName: fieldName,
                 fieldId: fieldId,
                 wrapperClass: wrapperClass,
+                inputSelector: '[id^="checkout_"]',
             });
             
             return field;
@@ -128,5 +143,14 @@ export default class Field extends HTMLDivElement{
         let event = new CustomEvent(`checkout:field:removed`, { detail: this });
         document.dispatchEvent(event);
         super.remove();
+    }
+
+    get value(){
+        return this.querySelector(this.inputSelector).value;
+    }
+
+    set value(val){
+        let input = this.querySelector(this.inputSelector);
+        input.value = val;
     }
 }

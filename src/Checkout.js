@@ -134,9 +134,7 @@ export default class Checkout {
         }
     }
 
-    _fieldCreated(event){
-        debugger;
-        
+    _fieldCreated(event){        
         let field = event.detail;
         let input = field.querySelector(`[id^="checkout_"]`);
 
@@ -146,7 +144,6 @@ export default class Checkout {
     }
 
     _fieldRemoved(event){
-        debugger;
         let field = event.detail;
         let input = field.querySelector(`[id^="checkout_"]`);
 

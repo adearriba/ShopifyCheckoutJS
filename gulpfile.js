@@ -27,11 +27,18 @@ async function build() {
 
 function minify() {
     return src(destFile)
+        .pipe(dest(destFolder))
+        .pipe(uglify())
+        .pipe(rename({ extname: '.min.js' }))
+        .pipe(dest(destFolder));
+}
+
+function minifyES5(){
+    return src(destFile)
         .pipe(babel({
-            presets: [
-                //"@babel/preset-env"
-            ]   
+            presets: ["@babel/preset-env"]   
         }))
+        .pipe(rename(`checkout.es5.js`))
         .pipe(dest(destFolder))
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
@@ -39,7 +46,7 @@ function minify() {
 }
 
 
-exports.build = series(build, minify);
+exports.build = series(build, minify, minifyES5);
 exports.default = function(){
-    watch(['src/*.js', 'src/*/*.js'], { ignoreInitial: false }, series(build, minify));
+    watch(['src/*.js', 'src/*/*.js'], { ignoreInitial: false }, series(build, minify, minifyES5));
 };

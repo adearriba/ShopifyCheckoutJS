@@ -64,6 +64,12 @@ $checkout.fields["checkout_attributes_fieldName"]
 
 ## 3.1. General field methods
 
+**Get input value**
+```javascript
+console.log(field.value);
+field.value = '';
+```
+
 **Add an error message and color**
 
 You can add a red border to the input and a message below it. The message can contain HTML elements in it.
