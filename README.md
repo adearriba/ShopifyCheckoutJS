@@ -11,6 +11,12 @@
 # 1. ShopifyCheckoutJS
 A little code for having a better experience manipulating Shopify´s Checkout via JS.
 
+To build the project using gulp, run 'gulp build' command from the console. (You will need npm installed)
+```javascript
+npm install //first time to install dependencies
+gulp build //build project
+```
+
 # 2. $checkout object
 The `$checkout` object is created to help with the different tasks manipulating Shopify´s checkout page.
 

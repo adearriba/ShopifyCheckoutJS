@@ -39,7 +39,7 @@ function minify() {
 }
 
 
-exports.build = build;
+exports.build = series(build, minify);
 exports.default = function(){
     watch(['src/*.js', 'src/*/*.js'], { ignoreInitial: false }, series(build, minify));
 };
