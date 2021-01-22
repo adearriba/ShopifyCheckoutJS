@@ -1,4 +1,7 @@
-- [1. ShopifyCheckoutJS](#1-shopifycheckoutjs)
+# ShopifyCheckoutJS <!-- omit in toc -->
+A little code for having a better experience manipulating Shopify´s Checkout via JS.
+
+- [1. Build JS](#1-build-js)
 - [2. $checkout object](#2-checkout-object)
 	- [2.1. Events](#21-events)
 - [3. Fields](#3-fields)
@@ -7,9 +10,7 @@
 	- [3.3. Checkboxs](#33-checkboxs)
 	- [3.4. Dropdowns](#34-dropdowns)
 
-
-# 1. ShopifyCheckoutJS
-A little code for having a better experience manipulating Shopify´s Checkout via JS.
+# 1. Build JS
 
 To build the project using gulp, run 'gulp build' command from the console. (You will need npm installed)
 ```javascript
