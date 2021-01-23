@@ -153,4 +153,15 @@ export default class Field extends HTMLDivElement{
         let input = this.querySelector(this.inputSelector);
         input.value = val;
     }
+
+    insertAfter(field){
+        if(!field || !(field instanceof Field)) throw TypeError('Object trying to add is not a Field element');
+        this.insertAdjacentElement('afterend', field);
+    }
+
+    insertBefore(field){
+        if(!field || !(field instanceof Field)) throw TypeError('Object trying to add is not a Field element');
+        this.insertAdjacentElement('beforebegin', field);
+    }
+
 }

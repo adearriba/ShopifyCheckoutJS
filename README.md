@@ -70,6 +70,15 @@ $checkout.fields["checkout_attributes_fieldName"]
 console.log(field.value);
 field.value = '';
 ```
+**Insert fields into the DOM**
+
+Fields can be inserted before or after another field:
+
+```javascript
+$checkout.fields["checkout_billing_address_phone"].insertBefore(field);
+
+$checkout.fields["checkout_billing_address_last_name"].insertAfter(field);
+```
 
 **Add an error message and color**
 
@@ -111,15 +120,9 @@ console.log($checkout.fields["checkout_attributes_dni"]);
 field.addTooltip('The content of the tooltip');
 ```
 
-**Adding it to the DOM *without* JQuery**
+**Adding it to the DOM**
 ```javascript
-var addressField = document.querySelector('[data-address-field="address1"]');
-addressField.insertAdjacentElement('afterend', field);
-```
-
-**Adding it to the DOM with JQuery**
-```javascript
-$('[data-address-field="address1"]').after(field);
+$checkout.fields["checkout_billing_address_phone"].insertBefore(field);
 ```
 
 ## 3.3. Checkboxs
