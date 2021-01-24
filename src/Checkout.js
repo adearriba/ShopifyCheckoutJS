@@ -3,6 +3,7 @@ import Field from './Fields/Field.js';
 import TextField from './Fields/TextField.js';
 import CheckboxField from './Fields/CheckboxField.js';
 import DropdownField from './Fields/DropdownField.js';
+import ShippingMethod from './ShippingMethod.js';
 
 export default class Checkout {
     constructor(){
@@ -96,6 +97,17 @@ export default class Checkout {
         document.dispatchEvent(event);
     }
 
+    _getShippingMethods(){
+        let methods = document.querySelectorAll('.radio-wrapper');
+        let shippingMethods = [];
+
+        methods.forEach( (method) => {
+            shippingMethods.push(new ShippingMethod(method));
+        });
+
+        return shippingMethods;
+    }
+
     _onLoad(event){
         try{
             this._triggerEvent('load');
@@ -105,7 +117,8 @@ export default class Checkout {
                     this._triggerEvent('load:information');
                     break;
                 case this.Steps.SHIPPING:
-                    this._triggerEvent('load:shipping');
+                    let shippingMethods = this._getShippingMethods()
+                    this._triggerEvent('load:shipping', { shippingMethods });
                     break;
                 case this.Steps.PAYMENT:
                     this._triggerEvent('load:payment');

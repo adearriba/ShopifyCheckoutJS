@@ -9,6 +9,9 @@ A little library that will help you manipulate Shopify´s Checkout via JS.
 	- [3.2. TextFields](#32-textfields)
 	- [3.3. Checkboxs](#33-checkboxs)
 	- [3.4. Dropdowns](#34-dropdowns)
+- [4. Shipping methods](#4-shipping-methods)
+	- [Add description to shipping method](#add-description-to-shipping-method)
+	- [Get/set checked status](#getset-checked-status)
 
 # 1. Build JS
 
@@ -39,7 +42,7 @@ The different types of events right now are:
 |---|---|
 |load|This is triggered for convenience in every Shopify´s ``page:load`` or ``page:change`` event.|
 |load:information|**Information** step is loaded|
-|load:shipping|**Shipping** step is loaded|
+|load:shipping|**Shipping** step is loaded. The ``event.detail`` object contains the shipping methods shown in the page.|
 |load:payment|**Payment** step is loaded|
 |load:processing|**Processing** page is loaded|
 |load:thankyou|**Thank you** page is loaded|
@@ -165,4 +168,25 @@ var select = new DropdownField({
 **Get selected value**
 ```javascript
 console.log(select.value);
+```
+
+# 4. Shipping methods
+When the ``load:shipping`` event is triggered, the ``event.detail`` object contains the shipping methods shown to the customer.
+
+## Add description to shipping method
+You can add a little description beneath the shipping method name. This accepts HTML so it can be more flexible.
+
+```javascript
+$checkout.on('load:shipping', e => { 
+    let shippingMethods = e.detail.shippingMethods;
+    shippingMethods[0].addDescription('Shipping by <b>UPS</b>')
+});
+```
+
+## Get/set checked status
+```javascript
+...
+shippingMethods[0].checked = true;
+console.log(shippingMethods[0].checked);
+...
 ```
