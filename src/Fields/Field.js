@@ -33,18 +33,8 @@ class FieldRetriever {
     }
 
     _setFieldPropierties(field){
-        let possibleWrapperClasses = [
-            '.field__input-wrapper',
-            '.checkbox-wrapper'
-        ];
-        
-        possibleWrapperClasses.some( className => {
-            let element = field.querySelector(className);
-            if(element != null){
-                field.wrapperClass = className;
-                return true;
-            }
-        });
+        if(!field.children) return;
+        field.wrapperClass = field.children[0].classList[0];
     }
 }
 
@@ -60,7 +50,6 @@ export default class Field extends HTMLDivElement{
             let field = Object.assign(element, {
                 fieldName: element.name,
                 fieldId: element.id,
-                wrapperClass: wrapperClass,
                 inputSelector: '[id^="checkout_"]',
             });
 
