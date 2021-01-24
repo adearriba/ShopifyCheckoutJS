@@ -55,13 +55,7 @@ export default class Field extends HTMLDivElement{
         if(typeof args == 'string'){       
             let input = document.querySelector(`#${args}`);
             let element = new FieldRetriever().retrieve(input);
-
             Object.setPrototypeOf(element, Field.prototype);
-            if(element.type == 'checkbox') {
-                    wrapperClass = 'checkbox-wrapper'; 
-            } else { 
-                wrapperClass = 'field__input-wrapper'; 
-            }
 
             let field = Object.assign(element, {
                 fieldName: element.name,
@@ -73,8 +67,9 @@ export default class Field extends HTMLDivElement{
             return field;
         }else if (typeof args == 'object'){
             const { name, label = name } = args;
-            let fieldId = `checkout_attributes_${args.name}`;
-            let fieldName = `checkout[attributes][${args.name}]`;
+
+            let fieldId = `checkout_attributes_${name}`;
+            let fieldName = `checkout[attributes][${name}]`;
 
             let element = document.createElement('div');
             element.classList.add('field');
