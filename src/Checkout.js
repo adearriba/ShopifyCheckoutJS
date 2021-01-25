@@ -4,6 +4,7 @@ import TextField from './Fields/TextField.js';
 import CheckboxField from './Fields/CheckboxField.js';
 import DropdownField from './Fields/DropdownField.js';
 import ShippingMethod from './ShippingMethod.js';
+import PaymentMethod from './PaymentMethod.js';
 
 export default class Checkout {
     constructor(){
@@ -97,15 +98,26 @@ export default class Checkout {
         document.dispatchEvent(event);
     }
 
-    _getShippingMethods(){
-        let methods = document.querySelectorAll('.radio-wrapper');
-        let shippingMethods = [];
+    _getSelectionMethods(type){
+        let methods = document.querySelectorAll(`.section--${type}-method .radio-wrapper`);
+        let methodsList = [];
 
-        methods.forEach( (method) => {
-            shippingMethods.push(new ShippingMethod(method));
+        
+        methods.forEach((method) => {
+            try{
+                if(type == 'shipping') {
+                    methodsList.push(new ShippingMethod(method));
+                } else if(type == 'payment') {
+                    methodsList.push(new PaymentMethod(method));
+                }
+            }catch(ex){
+                if (!(ex instanceof NotValidFieldException)) {
+                    throw ex;
+                }
+            }
         });
 
-        return shippingMethods;
+        return methodsList;
     }
 
     _onLoad(event){
@@ -117,11 +129,12 @@ export default class Checkout {
                     this._triggerEvent('load:information');
                     break;
                 case this.Steps.SHIPPING:
-                    let shippingMethods = this._getShippingMethods()
+                    let shippingMethods = this._getSelectionMethods('shipping');
                     this._triggerEvent('load:shipping', { shippingMethods });
                     break;
                 case this.Steps.PAYMENT:
-                    this._triggerEvent('load:payment');
+                    let paymentMethods = this._getSelectionMethods('payment');
+                    this._triggerEvent('load:payment', { paymentMethods });
                     break;
                 case this.Steps.PROCESSING:
                     this._triggerEvent('load:processing');

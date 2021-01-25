@@ -12,6 +12,11 @@ A little library that will help you manipulate Shopify´s Checkout via JS.
 - [4. Shipping methods](#4-shipping-methods)
 	- [4.1. Add description to shipping method](#41-add-description-to-shipping-method)
 	- [4.2. Get/set checked status](#42-getset-checked-status)
+	- [4.3. Get shipping info](#43-get-shipping-info)
+- [5. Payment methods](#5-payment-methods)
+	- [5.1. Add description to payment method](#51-add-description-to-payment-method)
+	- [5.2. Get/set checked status](#52-getset-checked-status)
+	- [5.3. Get payment method info](#53-get-payment-method-info)
 
 # 1. Build JS
 
@@ -206,4 +211,44 @@ $checkout.on('load:shipping', e => {
 shippingMethods[0].checked = true;
 console.log(shippingMethods[0].checked);
 ...
+```
+
+## 4.3. Get shipping info
+The shipping method object has direct access to the shipping rate and subtotal price (lineitems + shipping rate). More data can be obtained from the ``methodData`` property.
+```javascript
+console.log(shippingMethods[0].shippingRate);
+console.log(shippingMethods[0].subtotalPrice);
+
+console.log(shippingMethods[0].methodData);
+```
+
+# 5. Payment methods
+When the ``load:payment`` event is triggered, the ``event.detail`` object contains the payment methods shown to the customer.
+
+## 5.1. Add description to payment method
+You can add a little description in the content box beneath the payment method radio button. This accepts HTML so it can be more flexible.
+
+```javascript
+$checkout.on('load:payment', e => { 
+    let paymentMethods = e.detail.paymentMethods;
+    paymentMethods[1].addDescription('Payment using <b>Paypal</b>')
+});
+```
+
+## 5.2. Get/set checked status
+```javascript
+...
+paymentMethods[0].checked = true;
+console.log(paymentMethods[0].checked);
+...
+```
+
+## 5.3. Get payment method info
+The payment method object has direct access to the gateway ID and gateway name. More data can be obtained from the ``methodData`` property.
+
+```javascript
+console.log(paymentMethods[0].gatewayId);
+console.log(paymentMethods[0].gatewayName);
+
+console.log(paymentMethods[0].methodData);
 ```
