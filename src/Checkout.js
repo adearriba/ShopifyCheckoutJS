@@ -1,10 +1,7 @@
 import NotValidFieldException from './Exceptions/NotValidFieldException.js';
-import Field from './Fields/Field.js';
-import TextField from './Fields/TextField.js';
-import CheckboxField from './Fields/CheckboxField.js';
-import DropdownField from './Fields/DropdownField.js';
 import ShippingMethod from './ShippingMethod.js';
 import PaymentMethod from './PaymentMethod.js';
+import FieldFactory from './Fields/FieldFactory.js';
 
 export default class Checkout {
     constructor(){
@@ -31,39 +28,11 @@ export default class Checkout {
     _getFields(){
         let fields = [];
 
-        const fieldNodes = document.querySelectorAll('input, select');
+        const fieldNodes = document.querySelectorAll('input[id], select[id]');
+        const fieldFactory = new FieldFactory();
         fieldNodes.forEach(el => {
-            if(typeof el.id !== 'string' || el.id.length == 0){
-                return;
-            }
-
-            switch (el.type) {
-                case 'text':
-                    fields[el.id] = new TextField(el.id);
-                    break;
-                case 'email':
-                    fields[el.id] = new TextField(el.id);
-                    break;
-                case 'tel':
-                    fields[el.id] = new TextField(el.id);
-                    break;
-                case 'checkbox':
-                    fields[el.id] = new CheckboxField(el.id);
-                    break;
-                case 'select-one':
-                    fields[el.id] = new DropdownField(el.id);
-                    break;
-                case 'hidden':
-                    break;
-                default:
-                    try{
-                        fields[el.id] = new Field(el.id);
-                    }catch(e){
-                        if(e instanceof NotValidFieldException) return;
-                        else throw e;
-                    }
-                    break;
-            }
+            let field = fieldFactory.createFieldByElement(el);
+            if (field != null) fields[el.id] = field;
         });
 
         return fields;
