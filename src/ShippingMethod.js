@@ -5,6 +5,11 @@ export default class ShippingMethod extends HTMLDivElement{
             throw TypeError('Not a radio-wrapper');
         }
         Object.setPrototypeOf(element, ShippingMethod.prototype);
+        element.addEventListener('change', (e) => {
+            let event = new CustomEvent(`checkout:shippingmethod:changed`, { detail: element });
+            document.dispatchEvent(event);
+        });
+
         return element;
     }
 
@@ -16,6 +21,12 @@ export default class ShippingMethod extends HTMLDivElement{
 
         span.appendChild(document.createElement('br'));
         span.appendChild(desc);
+    }
+
+    get paymentMethodId(){
+        let input = this.querySelector('input');
+        if(!input) return Error('No input found for the payment method');
+        return input.id;
     }
 
     get checked(){

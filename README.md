@@ -10,8 +10,8 @@ A little library that will help you manipulate Shopify´s Checkout via JS.
 	- [3.3. Checkboxs](#33-checkboxs)
 	- [3.4. Dropdowns](#34-dropdowns)
 - [4. Shipping methods](#4-shipping-methods)
-	- [Add description to shipping method](#add-description-to-shipping-method)
-	- [Get/set checked status](#getset-checked-status)
+	- [4.1. Add description to shipping method](#41-add-description-to-shipping-method)
+	- [4.2. Get/set checked status](#42-getset-checked-status)
 
 # 1. Build JS
 
@@ -37,7 +37,9 @@ $checkout.on('error', function(e) {
 	console.trace(); 
 })
 ```
-The different types of events right now are:
+**Loading events**
+
+This are events related to loading or changing a page/step during the checkout process:
 |Event name|Descripcion|
 |---|---|
 |load|This is triggered for convenience in every Shopify´s ``page:load`` or ``page:change`` event.|
@@ -48,6 +50,21 @@ The different types of events right now are:
 |load:thankyou|**Thank you** page is loaded|
 |load:orderstatus|**Order status** page is loaded|
 |load:stockproblems|**Stock problems** page is loaded|
+
+
+**Interactive events**
+
+This are events related to interactions with the UI.
+
+|Event name|Descripcion|
+|---|---|
+|shippingmethod:changed|When a shipping method is selected. The ``event.detail`` contains the [shipping method object](#4-shipping-methods).
+
+
+**Other events**
+
+|Event name|Descripcion|
+|---|---|
 |error|When an exception is catch inside a callback of any triggered event|
 |field:created|When a field is **created**. The field reference is inside the ``event.detail`` property.|
 |field:removed|When a field is **removed**. The field reference is inside the ``event.detail`` property.|
@@ -173,7 +190,7 @@ console.log(select.value);
 # 4. Shipping methods
 When the ``load:shipping`` event is triggered, the ``event.detail`` object contains the shipping methods shown to the customer.
 
-## Add description to shipping method
+## 4.1. Add description to shipping method
 You can add a little description beneath the shipping method name. This accepts HTML so it can be more flexible.
 
 ```javascript
@@ -183,7 +200,7 @@ $checkout.on('load:shipping', e => {
 });
 ```
 
-## Get/set checked status
+## 4.2. Get/set checked status
 ```javascript
 ...
 shippingMethods[0].checked = true;
