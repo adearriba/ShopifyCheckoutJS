@@ -63,7 +63,8 @@ This are events related to interactions with the UI.
 
 |Event name|Descripcion|
 |---|---|
-|shippingmethod:changed|When a shipping method is selected. The ``event.detail`` contains the [shipping method object](#4-shipping-methods).
+|shippingmethod:changed|When a shipping method is selected. The ``event.detail`` contains the [shipping method object](#4-shipping-methods).|
+|paymentmethod:changed|When a payment method is selected. The ``event.detail`` contains the [payment method object](#5-payment-methods).|
 
 
 **Other events**
