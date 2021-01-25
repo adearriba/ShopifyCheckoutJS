@@ -1,16 +1,15 @@
-export default class ShippingMethod extends HTMLDivElement{
+import SelectionMethod from "./SelectionMethod";
+
+export default class ShippingMethod extends SelectionMethod{
     constructor(element){
-        if(!(element instanceof HTMLDivElement)
-            || !element.classList.contains('radio-wrapper')){
-            throw TypeError('Not a radio-wrapper');
-        }
-        Object.setPrototypeOf(element, ShippingMethod.prototype);
-        element.addEventListener('change', (e) => {
-            let event = new CustomEvent(`checkout:shippingmethod:changed`, { detail: element });
+        super(element);
+        Object.setPrototypeOf(this, ShippingMethod.prototype);
+
+        this.type = 'shipping';
+        this.addEventListener('change', (e) => {
+            let event = new CustomEvent(`checkout:shippingmethod:changed`, { detail: this });
             document.dispatchEvent(event);
         });
-
-        return element;
     }
 
     addDescription(text){
@@ -23,21 +22,11 @@ export default class ShippingMethod extends HTMLDivElement{
         span.appendChild(desc);
     }
 
-    get paymentMethodId(){
-        let input = this.querySelector('input');
-        if(!input) return Error('No input found for the payment method');
-        return input.id;
+    get shippingRate(){
+        return this.methodData.checkoutTotalShippingCents/100;
     }
 
-    get checked(){
-        let input = this.querySelector('input');
-        if(!input) return false;
-        return input.checked;
-    }
-
-    set checked(boolean){
-        let input = this.querySelector('input');
-        if(!input || !(typeof boolean == 'boolean')) return;
-        return input.checked = boolean;
+    get subtotalPrice(){
+        return this.methodData.checkoutSubtotalPriceCents/100;
     }
 }
