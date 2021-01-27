@@ -13,7 +13,13 @@ export default class Checkout {
             THANKYOU: 'thank_you',
             ORDERSTATUS: 'order_status',
             STOCK_PROBLEMS: 'stock_problems',
-        }
+        };
+
+        this.selectors ={
+            inputs: 'input[id], select[id]',
+            selectionMethods: '.section--{TYPE}-method .radio-wrapper',
+            fields: '[id^="checkout_"]',
+        };
 
         document.addEventListener('page:load', this._onLoad.bind(this), false);
         document.addEventListener('page:change', this._onLoad.bind(this), false);
@@ -28,7 +34,7 @@ export default class Checkout {
     _getFields(){
         let fields = [];
 
-        const fieldNodes = document.querySelectorAll('input[id], select[id]');
+        const fieldNodes = document.querySelectorAll(this.selectors.inputs);
         const fieldFactory = new FieldFactory();
         fieldNodes.forEach(el => {
             let field = fieldFactory.createFieldByElement(el);
@@ -68,7 +74,7 @@ export default class Checkout {
     }
 
     _getSelectionMethods(type){
-        let methods = document.querySelectorAll(`.section--${type}-method .radio-wrapper`);
+        let methods = document.querySelectorAll(this.selectors.selectionMethods.replace('{TYPE}',type));
         let methodsList = [];
 
         
@@ -131,7 +137,7 @@ export default class Checkout {
 
     _fieldCreated(event){        
         let field = event.detail;
-        let input = field.querySelector(`[id^="checkout_"]`);
+        let input = field.querySelector(this.selectors.fields);
 
         if(this.fields && !this.fields.hasOwnProperty(input.id)){
             this.fields[input.id] = field;
@@ -140,7 +146,7 @@ export default class Checkout {
 
     _fieldRemoved(event){
         let field = event.detail;
-        let input = field.querySelector(`[id^="checkout_"]`);
+        let input = field.querySelector(this.selectors.fields);
 
         if(this.fields && this.fields.hasOwnProperty(input.id)){
             delete this.fields[input.id];

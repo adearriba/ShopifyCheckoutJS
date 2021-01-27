@@ -40,7 +40,20 @@ class FieldRetriever {
 
 export default class Field extends HTMLDivElement{
     constructor(args){
-        let wrapperClass = '';
+        let selectors = {
+            input: '[id^="checkout_"]',
+            errorMessage: '.field__message--error',
+            wrapper: '.field__input-wrapper',
+        };
+
+        let classes = {
+            wrapper: ['field__input-wrapper'],
+            field: ['field'],
+            fieldInput: ['field__input'],
+            label: ['field__label', 'field__label--visible'],
+            fieldError: ['field--error'],
+            fieldErrorMessage: ['field__message', 'field__message--error'],
+        };
 
         if(typeof args == 'string'){       
             let input = document.querySelector(`#${args}`);
@@ -50,7 +63,8 @@ export default class Field extends HTMLDivElement{
             let field = Object.assign(element, {
                 fieldName: element.name,
                 fieldId: element.id,
-                inputSelector: '[id^="checkout_"]',
+                selectors,
+                classes,
             });
 
             return field;
@@ -61,19 +75,13 @@ export default class Field extends HTMLDivElement{
             let fieldName = `checkout[attributes][${name}]`;
 
             let element = document.createElement('div');
-            element.classList.add('field');
+            element.classList.add(classes.field);
 
             let wrapperElement = document.createElement('div');
-            if(args.type == 'checkbox') {
-                 wrapperClass = 'checkbox-wrapper'; 
-            } else { 
-                wrapperClass = 'field__input-wrapper'; 
-            }
-
-            wrapperElement.classList.add(wrapperClass);
+            wrapperElement.classList.add(classes.wrapper);
 
             let labelElement = document.createElement('label');
-            labelElement.classList.add('field__label', 'field__label--visible');
+            labelElement.classList.add(...classes.label);
             labelElement.innerText = label;
             labelElement.htmlFor = fieldId;
 
@@ -84,8 +92,8 @@ export default class Field extends HTMLDivElement{
             let field = Object.assign(element, {
                 fieldName: fieldName,
                 fieldId: fieldId,
-                wrapperClass: wrapperClass,
-                inputSelector: '[id^="checkout_"]',
+                selectors,
+                classes,
             });
             
             return field;
@@ -103,11 +111,11 @@ export default class Field extends HTMLDivElement{
 
     showError(message){
         this.removeError();
-        this.classList.add('field--error');
+        this.classList.add(...this.classes.fieldError);
 
         if(message && message.length > 0){
             let errorElement = document.createElement('p');
-            errorElement.classList.add('field__message', 'field__message--error');
+            errorElement.classList.add(...this.classes.fieldErrorMessage);
             errorElement.innerHTML = message;
 
             this.appendChild(errorElement);
@@ -115,9 +123,9 @@ export default class Field extends HTMLDivElement{
     }
 
     removeError(){
-        this.classList.remove('field--error');
+        this.classList.remove(...this.classes.fieldError);
 
-        let errorElements = this.querySelectorAll('.field__message--error');
+        let errorElements = this.querySelectorAll(this.selectors.errorMessage);
         errorElements.forEach( (element) => {
             element.remove();
         });
@@ -130,11 +138,11 @@ export default class Field extends HTMLDivElement{
     }
 
     get value(){
-        return this.querySelector(this.inputSelector).value;
+        return this.querySelector(this.selectors.input).value;
     }
 
     set value(val){
-        let input = this.querySelector(this.inputSelector);
+        let input = this.querySelector(this.selectors.input);
         input.value = val;
     }
 

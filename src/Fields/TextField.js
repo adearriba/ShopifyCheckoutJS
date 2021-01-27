@@ -14,7 +14,7 @@ export default class TextField extends Field{
 
     addField(args){
         let input = document.createElement('input');
-        input.classList.add('field__input');
+        input.classList.add(...this.classes.fieldInput);
         input.placeholder = (args.placeholder) ? args.placeholder : '';
         input.size = (args.size) ? args.size : 30;
         input.type = (args.type) ? args.type : 'text';
@@ -23,7 +23,7 @@ export default class TextField extends Field{
         input.name = this.fieldName;
         input.id = this.fieldId;
         
-        this.querySelector(`.${this.wrapperClass}`).appendChild(input);
+        this.querySelector(this.selectors.wrapper).appendChild(input);
 
         if(typeof args.tooltip == 'string'){
             this.addTooltip(args.tooltip);
@@ -33,7 +33,7 @@ export default class TextField extends Field{
     addTooltip(text = '', icon = '#question'){
         this.removeTooltip();
 
-        const wrapper = this.querySelector(`.${this.wrapperClass}`);
+        const wrapper = this.querySelector(this.selectors.wrapper);
         wrapper.classList.add('field__input-wrapper--icon-right');
 
         let tooltipDiv = document.createElement('div');
@@ -66,7 +66,7 @@ export default class TextField extends Field{
     }
 
     removeTooltip(){
-        const wrapper = this.querySelector(`.${this.wrapperClass}`);
+        const wrapper = this.querySelector(this.selectors.wrapper);
         const tooltips = wrapper.querySelectorAll('.field__icon');
 
         wrapper.classList.remove('field__input-wrapper--icon-right');
