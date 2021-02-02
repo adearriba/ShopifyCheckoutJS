@@ -50,7 +50,7 @@ This are events related to loading or changing a page/step during the checkout p
 |load|This is triggered for convenience in every Shopify´s ``page:load`` or ``page:change`` event.|
 |load:information|**Information** step is loaded|
 |load:shipping|**Shipping** step is loaded. The ``event.detail`` object contains the shipping methods shown in the page.|
-|load:payment|**Payment** step is loaded|
+|load:payment|**Payment** step is loaded. The ``event.detail`` object contains the payment methods shown in the page.|
 |load:processing|**Processing** page is loaded|
 |load:thankyou|**Thank you** page is loaded|
 |load:orderstatus|**Order status** page is loaded|
