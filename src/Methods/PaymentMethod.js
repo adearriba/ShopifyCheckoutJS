@@ -1,4 +1,4 @@
-import NotValidFieldException from "./Exceptions/NotValidFieldException";
+import NotValidFieldException from "../Exceptions/NotValidFieldException";
 import SelectionMethod from "./SelectionMethod";
 
 export default class PaymentMethod extends SelectionMethod{

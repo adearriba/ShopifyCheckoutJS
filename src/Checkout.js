@@ -1,6 +1,6 @@
 import NotValidFieldException from './Exceptions/NotValidFieldException.js';
-import ShippingMethod from './ShippingMethod.js';
-import PaymentMethod from './PaymentMethod.js';
+import ShippingMethod from './Methods/ShippingMethod.js';
+import PaymentMethod from './Methods/PaymentMethod.js';
 import FieldFactory from './Fields/FieldFactory.js';
 
 export default class Checkout {
