@@ -19,6 +19,11 @@ export default class Checkout {
             inputs: 'input[id], select[id]',
             selectionMethods: '.section--{TYPE}-method .radio-wrapper',
             fields: '[id^="checkout_"]',
+            stockProblem: {
+                list: '.stock-problem-table .product__description',
+                name: '.product__description__name',
+                description: '.product__description__variant',
+            },
         };
 
         document.addEventListener('page:load', this._onLoad.bind(this), false);
@@ -57,11 +62,11 @@ export default class Checkout {
 
     _getCurrentStep(){
         let step = Shopify.Checkout.step;
-        if(Shopify.Checkout.page == 'stock_problems') { step = Steps.STOCK_PROBLEMS; }
+        if(Shopify.Checkout.page == 'stock_problems') { step = this.Steps.STOCK_PROBLEMS; }
 
         if(typeof Shopify.Checkout.OrderStatus != 'undefined'){
-            if(Shopify.Checkout.page == 'thank_you') step = Steps.THANKYOU;
-            else step = Steps.ORDERSTATUS;
+            if(Shopify.Checkout.page == 'thank_you') step = this.Steps.THANKYOU;
+            else step = this.Steps.ORDERSTATUS;
         }
 
         sessionStorage.setItem('step', step);
@@ -95,6 +100,22 @@ export default class Checkout {
         return methodsList;
     }
 
+    _getStockProblemList(){
+        let list = document.querySelectorAll(this.selectors.stockProblem.list);
+        let stockProblemList = [];
+
+        for (let item of list) {
+            let name = item.querySelector(this.selectors.stockProblem.name).innerText;
+            let variant = item.querySelector(this.selectors.stockProblem.description).innerText;
+            stockProblemList.push({
+                name: name,
+                variant: variant,
+            });
+        }
+
+        return stockProblemList;
+    }
+
     _onLoad(event){
         try{
             this._triggerEvent('load');
@@ -121,7 +142,8 @@ export default class Checkout {
                     this._triggerEvent('load:orderstatus');
                     break;
                 case this.Steps.STOCK_PROBLEMS:
-                    this._triggerEvent('load:stockproblems');
+                    var stockProblemList = this._getStockProblemList();
+                    this._triggerEvent('load:stockproblems', { stockProblemList });
                     break;
                 default:
                     break;

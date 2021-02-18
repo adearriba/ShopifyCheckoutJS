@@ -54,7 +54,7 @@ This are events related to loading or changing a page/step during the checkout p
 |load:processing|**Processing** page is loaded|
 |load:thankyou|**Thank you** page is loaded|
 |load:orderstatus|**Order status** page is loaded|
-|load:stockproblems|**Stock problems** page is loaded|
+|load:stockproblems|**Stock problems** page is loaded. The ``event.detail`` object contains a list of name and variant of the products shown in the page.|
 
 
 **Interactive events**
