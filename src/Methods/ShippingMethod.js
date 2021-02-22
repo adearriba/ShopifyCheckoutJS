@@ -6,7 +6,7 @@ export default class ShippingMethod extends SelectionMethod{
         Object.setPrototypeOf(this, ShippingMethod.prototype);
 
         this.type = 'shipping';
-        this.addEventListener('change', (e) => {
+        this.addEventListener('change', () => {
             let event = new CustomEvent(`checkout:shippingmethod:changed`, { detail: this });
             document.dispatchEvent(event);
         });

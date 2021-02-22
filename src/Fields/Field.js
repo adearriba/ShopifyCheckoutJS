@@ -1,3 +1,4 @@
+/* eslint-disable constructor-super */
 import NotValidFieldException from '../Exceptions/NotValidFieldException.js';
 import NotImplementedError from '../Exceptions/NotImplementedError.js';
 
@@ -105,6 +106,7 @@ export default class Field extends HTMLDivElement{
         document.dispatchEvent(event);
     }
 
+    // eslint-disable-next-line no-unused-vars
     addField(args){
         throw new NotImplementedError();
     }

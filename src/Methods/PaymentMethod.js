@@ -10,7 +10,7 @@ export default class PaymentMethod extends SelectionMethod{
         Object.setPrototypeOf(this, PaymentMethod.prototype);
 
         this.type = 'payment';
-        this.addEventListener('change', (e) => {
+        this.addEventListener('change', () => {
             let event = new CustomEvent(`checkout:paymentmethod:changed`, { detail: this });
             document.dispatchEvent(event);
         });

@@ -14,6 +14,7 @@ export default class SelectionMethod extends HTMLDivElement{
         });
     }
 
+    // eslint-disable-next-line no-unused-vars
     addDescription(text){
         throw new NotImplementedError();
     }
@@ -37,6 +38,6 @@ export default class SelectionMethod extends HTMLDivElement{
     }
 
     set checked(boolean){
-        return this.input.checked = boolean;
+        this.input.checked = boolean;
     }
 }
