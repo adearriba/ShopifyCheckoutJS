@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import NotValidFieldException from './Exceptions/NotValidFieldException.js';
 import ShippingMethod from './Methods/ShippingMethod.js';
 import PaymentMethod from './Methods/PaymentMethod.js';
@@ -124,14 +125,16 @@ export default class Checkout {
                 case this.Steps.INFORMATION:
                     this._triggerEvent('load:information');
                     break;
-                case this.Steps.SHIPPING:
+                case this.Steps.SHIPPING: {
                     let shippingMethods = this._getSelectionMethods('shipping');
                     this._triggerEvent('load:shipping', { shippingMethods });
                     break;
-                case this.Steps.PAYMENT:
+                }
+                case this.Steps.PAYMENT: {
                     let paymentMethods = this._getSelectionMethods('payment');
                     this._triggerEvent('load:payment', { paymentMethods });
                     break;
+                }
                 case this.Steps.PROCESSING:
                     this._triggerEvent('load:processing');
                     break;
@@ -141,10 +144,11 @@ export default class Checkout {
                 case this.Steps.ORDERSTATUS:
                     this._triggerEvent('load:orderstatus');
                     break;
-                case this.Steps.STOCK_PROBLEMS:
+                case this.Steps.STOCK_PROBLEMS: {
                     var stockProblemList = this._getStockProblemList();
                     this._triggerEvent('load:stockproblems', { stockProblemList });
                     break;
+                }
                 default:
                     break;
             }
@@ -160,8 +164,9 @@ export default class Checkout {
     _fieldCreated(event){        
         let field = event.detail;
         let input = field.querySelector(this.selectors.fields);
+        let hasInputAlready = Object.prototype.hasOwnProperty.call(this.fields, input.id);
 
-        if(this.fields && !this.fields.hasOwnProperty(input.id)){
+        if(this.fields && !hasInputAlready){
             this.fields[input.id] = field;
         }
     }
@@ -169,8 +174,9 @@ export default class Checkout {
     _fieldRemoved(event){
         let field = event.detail;
         let input = field.querySelector(this.selectors.fields);
+        let hasInputAlready = Object.prototype.hasOwnProperty.call(this.fields, input.id);
 
-        if(this.fields && this.fields.hasOwnProperty(input.id)){
+        if(this.fields && hasInputAlready){
             delete this.fields[input.id];
         }        
     }
