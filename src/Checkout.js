@@ -34,6 +34,7 @@ export default class Checkout {
 
         this.lastStep = this._getLastStep();
         this.currentStep = this._getCurrentStep();
+        this.fields = [];
         this.fields = this._getFields();
     }
 
