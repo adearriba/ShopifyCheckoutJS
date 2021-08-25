@@ -7,8 +7,9 @@ A little library that will help you manipulate Shopify´s Checkout via JS.
 - [3. Fields](#3-fields)
 	- [3.1. General field methods](#31-general-field-methods)
 	- [3.2. TextFields](#32-textfields)
-	- [3.3. Checkboxs](#33-checkboxs)
-	- [3.4. Dropdowns](#34-dropdowns)
+	- [3.3. TextAreaFields](#33-textfields)
+	- [3.4. Checkboxs](#34-checkboxs)
+	- [3.5. Dropdowns](#35-dropdowns)
 - [4. Shipping methods](#4-shipping-methods)
 	- [4.1. Add description to shipping method](#41-add-description-to-shipping-method)
 	- [4.2. Get/set checked status](#42-getset-checked-status)
@@ -151,7 +152,36 @@ field.addTooltip('The content of the tooltip');
 $checkout.fields["checkout_billing_address_phone"].insertBefore(field);
 ```
 
-## 3.3. Checkboxs
+## 3.3. TextAreaFields
+
+**Create TextAreaFields**
+```javascript
+var field = new TextAreaField({
+	name:'dni',
+	//Optional properties
+	placeholder:'DNI', 
+	label:'DNI',
+	rows: 3,
+	cols: 30,
+	defaultValue: '', 
+	tooltip: 'Content of the tooltip'
+});
+
+//Accesible also from $checkout.fields
+console.log($checkout.fields["checkout_attributes_dni"]);
+```
+
+**Add tooltip to field**
+```javascript
+field.addTooltip('The content of the tooltip');
+```
+
+**Adding it to the DOM**
+```javascript
+$checkout.fields["checkout_billing_address_phone"].insertBefore(field);
+```
+
+## 3.4. Checkboxs
 
 **Create Checkbox**
 ```javascript
@@ -169,7 +199,7 @@ field.checked = true;
 console.log(field.checked);
 ```
 
-## 3.4. Dropdowns
+## 3.5. Dropdowns
 
 **Create a dropdown/select**
 ```javascript
