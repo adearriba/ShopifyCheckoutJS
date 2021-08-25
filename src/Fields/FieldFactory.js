@@ -3,6 +3,7 @@ import TextField from './TextField.js';
 import CheckboxField from './CheckboxField.js';
 import DropdownField from './DropdownField.js';
 import NotValidFieldException from '../Exceptions/NotValidFieldException.js';
+import TextAreaField from "./TextAreaField";
 
 export default class FieldFactory {
     constructor(){ }
@@ -15,6 +16,8 @@ export default class FieldFactory {
                 return new TextField(element.id);
             case 'tel':
                 return new TextField(element.id);
+            case 'textarea':
+                return new TextAreaField(element.id);
             case 'checkbox':
                 return new CheckboxField(element.id);
             case 'select-one':
