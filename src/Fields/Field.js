@@ -74,6 +74,11 @@ export default class Field extends HTMLDivElement{
 
             let fieldId = `checkout_attributes_${name}`;
             let fieldName = `checkout[attributes][${name}]`;
+            // handle fully-qualified names like checkout[note] and checkout[attributes][buyer_is_cool]
+            if (name.startsWith('checkout[') && name.endsWith(']')) {
+                fieldId = name.replace('][','_').replace('[','_').replace(']','')
+                fieldName = name;
+            }
 
             let element = document.createElement('div');
             element.classList.add(classes.field);
