@@ -1,6 +1,7 @@
 /* eslint-disable constructor-super */
 import NotValidFieldException from '../Exceptions/NotValidFieldException.js';
 import NotImplementedError from '../Exceptions/NotImplementedError.js';
+import BaseInputComponent from './BaseInputComponent.js';
 
 class FieldRetriever {
     retrieve(inputElement){
@@ -39,8 +40,10 @@ class FieldRetriever {
     }
 }
 
-export default class Field extends HTMLDivElement{
+export default class Field extends BaseInputComponent{
     constructor(args){
+        super({ type: 'field' });
+
         let selectors = {
             input: '[id^="checkout_"]',
             errorMessage: '.field__message--error',
@@ -62,6 +65,7 @@ export default class Field extends HTMLDivElement{
             Object.setPrototypeOf(element, Field.prototype);
 
             let field = Object.assign(element, {
+                componentType: this.componentType,
                 fieldName: element.name,
                 fieldId: element.id,
                 selectors,
@@ -75,7 +79,7 @@ export default class Field extends HTMLDivElement{
             let fieldId = `checkout_attributes_${name}`;
             let fieldName = `checkout[attributes][${name}]`;
 
-            let element = document.createElement('div');
+            let element = this;
             element.classList.add(classes.field);
 
             let wrapperElement = document.createElement('div');
@@ -102,8 +106,22 @@ export default class Field extends HTMLDivElement{
     }
 
     created(){
-        let event = new CustomEvent(`checkout:field:created`, { detail: this });
+        this.addEventListener("input", this.changed);
+
+        let event = new CustomEvent(`checkout:${this.componentType}:created`, { detail: this });
         document.dispatchEvent(event);
+    }
+
+    changed(innerEvent){
+        let input = this.querySelector(this.selectors.input);
+        let event = new CustomEvent(`checkout:${this.componentType}:changed`, { detail: 
+            {
+                event: innerEvent,
+                input: input,
+                value: input.value
+            }
+        });
+        this.dispatchEvent(event);
     }
 
     // eslint-disable-next-line no-unused-vars
@@ -134,7 +152,7 @@ export default class Field extends HTMLDivElement{
     }
 
     remove(){
-        let event = new CustomEvent(`checkout:field:removed`, { detail: this });
+        let event = new CustomEvent(`checkout:${this.componentType}:removed`, { detail: this });
         document.dispatchEvent(event);
         super.remove();
     }
@@ -147,15 +165,4 @@ export default class Field extends HTMLDivElement{
         let input = this.querySelector(this.selectors.input);
         input.value = val;
     }
-
-    insertAfter(field){
-        if(!field || !(field instanceof Field)) throw TypeError('Object trying to add is not a Field element');
-        this.insertAdjacentElement('afterend', field);
-    }
-
-    insertBefore(field){
-        if(!field || !(field instanceof Field)) throw TypeError('Object trying to add is not a Field element');
-        this.insertAdjacentElement('beforebegin', field);
-    }
-
 }
