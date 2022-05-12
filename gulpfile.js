@@ -14,8 +14,6 @@ const rollup = require('rollup');
 const uglify = require('gulp-uglify-es').default;
 const rename = require('gulp-rename');
 const babel = require('gulp-babel');
-const concat = require('gulp-concat');
-
 
 async function build() {
     const bundle = await rollup.rollup({
