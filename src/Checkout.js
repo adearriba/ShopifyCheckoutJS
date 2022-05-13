@@ -37,6 +37,9 @@ export default class Checkout {
         document.addEventListener('checkout:field:created', this._fieldCreated.bind(this), false);
         document.addEventListener('checkout:field:removed', this._fieldRemoved.bind(this), false);
 
+        let form = document.querySelector('[type=submit]').parentElement.closest("form");
+        form.addEventListener('submit', this._onContinue.bind(this), true);
+
         this.fields = this._getFields();
     }
 
@@ -118,6 +121,10 @@ export default class Checkout {
         }
 
         return stockProblemList;
+    }
+
+    _onContinue(event){
+        this._triggerEvent('continue', { innerEvent: event });
     }
 
     _onLoad(event){
