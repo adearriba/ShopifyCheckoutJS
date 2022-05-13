@@ -4,7 +4,7 @@ export default class SectionComponent extends BaseComponent{
     constructor(args = null)
     {
         super(args);
-        const {title, name} = args;
+        const {title, name, selector } = args;
 
         let selectors = {
             contentDivs: '.section__content',
@@ -16,6 +16,28 @@ export default class SectionComponent extends BaseComponent{
             content: ['section__content'],
             title: ['section__title'],
         };
+
+        let isVisible = true;
+        let contentDivs = [];
+
+        if(selector!=null)
+        { 
+            let section = document.querySelector(selector);
+            if(section!=null)
+            {
+                let contentDiv = section.querySelector(selectors.contentDivs);
+                contentDivs.push(contentDiv);
+
+                Object.setPrototypeOf(section, SectionComponent.prototype);
+
+                return Object.assign(section, {
+                    selectors,
+                    classes,
+                    isVisible,
+                    contentDivs,
+                });
+            }
+        }
 
         this.classList.add(...classes.section);
         let headerDiv = document.createElement('div');
@@ -29,6 +51,7 @@ export default class SectionComponent extends BaseComponent{
 
         let contentDiv = document.createElement('div');
         contentDiv.classList.add(...classes.content);
+        contentDivs.push(contentDiv);
 
         this.appendChild(headerDiv);
         this.appendChild(contentDiv);
@@ -38,13 +61,42 @@ export default class SectionComponent extends BaseComponent{
         return Object.assign(this, {
             selectors,
             classes,
+            isVisible,
+            contentDivs,
         });
     }
 
-    addContent(component)
+    addContent(component, sectionContentId = 0)
     {
         if(!component || !(component instanceof BaseComponent)) throw TypeError('Object trying to add is not a component.');
-        this.querySelector(this.selectors.contentDivs).appendChild(component);
+        this.contentDivs[sectionContentId].appendChild(component);
+    }
+
+    addSectionContentDiv()
+    {
+        let contentDiv = document.createElement('div');
+        contentDiv.classList.add(...this.classes.content);
+        this.contentDivs.push(contentDiv);
+        this.appendChild(contentDiv);
+        return this.contentDivs.length - 1;
+    }
+
+    hide()
+    {
+        this.classList.add('hidden-if-js');
+        this.isVisible = !this.isVisible;
+    }
+
+    show()
+    {
+        this.classList.remove('hidden-if-js');
+        this.isVisible = !this.isVisible;
+    }
+
+    toggle()
+    {
+        if(this.isVisible) this.hide();
+        else this.show();
     }
 
 }

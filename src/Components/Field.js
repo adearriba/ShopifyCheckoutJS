@@ -52,11 +52,12 @@ export default class Field extends BaseInputComponent{
 
         let classes = {
             wrapper: ['field__input-wrapper'],
-            field: ['field'],
+            field: ['field', 'field--show-floating-label'],
             fieldInput: ['field__input'],
             label: ['field__label', 'field__label--visible'],
             fieldError: ['field--error'],
             fieldErrorMessage: ['field__message', 'field__message--error'],
+            half: ['field--half'],
         };
 
         if(typeof args == 'string'){       
@@ -74,13 +75,14 @@ export default class Field extends BaseInputComponent{
 
             return field;
         }else if (typeof args == 'object'){
-            const { name, label = name } = args;
+            const { name, label = name, isHalf } = args;
 
             let fieldId = `checkout_attributes_${name}`;
             let fieldName = `checkout[attributes][${name}]`;
 
             let element = this;
-            element.classList.add(classes.field);
+            element.classList.add(...classes.field);
+            if(isHalf) element.classList.add(classes.half);
 
             let wrapperElement = document.createElement('div');
             wrapperElement.classList.add(classes.wrapper);

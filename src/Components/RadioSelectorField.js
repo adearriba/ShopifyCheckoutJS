@@ -4,6 +4,8 @@ import BaseInputComponent from './BaseInputComponent.js';
 export default class RadioSelectorField extends BaseInputComponent
 {
     constructor(args){
+        super(args);
+
         let selectors = {
 
         };
@@ -25,12 +27,11 @@ export default class RadioSelectorField extends BaseInputComponent
         let fieldName = `checkout[attributes][${args.name}]`;
         let fieldId = `checkout_attributes_${args.name}`;
 
-        let element = document.createElement('div');
-        element.classList.add(classes.wrapper);
+        this.classList.add(classes.wrapper);
 
-        Object.setPrototypeOf(element, RadioSelectorField.prototype);
+        Object.setPrototypeOf(this, RadioSelectorField.prototype);
 
-        let field = Object.assign(element, {
+        let field = Object.assign(this, {
             selectors,
             classes,
             fieldName,
@@ -65,6 +66,7 @@ export default class RadioSelectorField extends BaseInputComponent
         input.value = this.value;
         input.name = this.fieldName;
         input.id = id;
+        input.addEventListener("input", this.changed.bind(this));
 
         inputDiv.appendChild(input);
         return inputDiv;

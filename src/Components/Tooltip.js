@@ -1,24 +1,28 @@
 export default class Tooltip extends HTMLDivElement{
     constructor(text, fieldId, icon = '#question'){
         let classes = {
-            wrapper: ['field__icon', 'has-tooltip'],
+            wrapper: ['field__icon'],
+            container: ['tooltip-container'],
             tooltip: ['tooltip'],
-            svgWrapper: ['field__icon-svg'],
-            svgIcon: ['icon-svg', 'icon-svg--color-adaptive-lighter','icon-svg--size-16', 'icon-svg--block'],
+            button: ['tooltip-control'],
+            svgIcon: ['icon-svg', 'icon-svg--color-adaptive-lighter','icon-svg--size-16', 'icon-svg--block', 'icon-svg--center'],
         };
 
         let tooltipDiv = document.createElement('div');
-        tooltipDiv.setAttribute('role', 'tooltip');
         tooltipDiv.classList.add(...classes.wrapper);
+
+        let tooltipContainer = document.createElement('div');
+        tooltipContainer.classList.add(...classes.container);
 
         let tooltipSpan = document.createElement('span');
         tooltipSpan.id = `tooltip-for-${fieldId}`;
         tooltipSpan.classList.add(...classes.tooltip);
         tooltipSpan.innerText = text;
 
-        let iconDiv = document.createElement('div');
-        iconDiv.classList.add(...classes.svgWrapper);
-
+        let button = document.createElement('button');
+        button.classList.add(...classes.button);
+        button.type = 'button';
+        
         let iconSVG = document.createElementNS('http://www.w3.org/2000/svg','svg');
         iconSVG.classList.add(...classes.svgIcon);
         iconSVG.setAttribute('role', 'presentation');
@@ -29,9 +33,10 @@ export default class Tooltip extends HTMLDivElement{
         use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', icon);
         
         iconSVG.appendChild(use);
-        iconDiv.appendChild(iconSVG);
-        tooltipDiv.appendChild(tooltipSpan);
-        tooltipDiv.appendChild(iconDiv)
+        button.appendChild(iconSVG);
+        tooltipContainer.appendChild(button);
+        tooltipContainer.appendChild(tooltipSpan);
+        tooltipDiv.appendChild(tooltipContainer);
 
         return tooltipDiv;
     }

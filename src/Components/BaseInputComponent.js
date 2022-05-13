@@ -24,6 +24,6 @@ export default class BaseInputComponent extends BaseComponent{
     }
 
     onValueChanged(callback){
-        this.on(`${this.componentType}:changed`, callback);
+        this.on(`changed`, callback);
     }
 }
