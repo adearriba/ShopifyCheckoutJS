@@ -1,6 +1,7 @@
 # ShopifyCheckoutJS <!-- omit in toc -->
 A little library that will help you manipulate Shopify´s Checkout via JS.
 
+- [Other versions](#other-versions)
 - [1. Build JS](#1-build-js)
 - [2. $checkout object](#2-checkout-object)
 	- [2.1. Events](#21-events)
@@ -21,6 +22,14 @@ A little library that will help you manipulate Shopify´s Checkout via JS.
 	- [6.1. Add description to payment method](#61-add-description-to-payment-method)
 	- [6.2. Get/set checked status](#62-getset-checked-status)
 	- [6.3. Get payment method info](#63-get-payment-method-info)
+
+# Other versions
+
+Please refer to each version branch in case you are using a previous verions.
+
+**Important: ``V0.2.0 has breaking changes.``**
+
+v0.1.0: https://github.com/adearriba/ShopifyCheckoutJS/tree/v0.1.0
 
 # 1. Build JS
 
