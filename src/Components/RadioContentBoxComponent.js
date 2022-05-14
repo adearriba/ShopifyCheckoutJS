@@ -39,7 +39,7 @@ export default class RadioContentBoxComponent extends BaseInputComponent{
     }
 
     addOption(args){
-        if(args.label == null) throw new ReferenceNotDefinedException('args.label');
+        if(args.label == null && args.innerHTML == null) throw new ReferenceNotDefinedException('args.label || args.innerHTML');
 
         let row = document.createElement('row');
         row.classList.add(...this.classes.row);
@@ -70,7 +70,7 @@ export default class RadioContentBoxComponent extends BaseInputComponent{
     }
 
     remove(){
-        let event = new CustomEvent(`checkout:field:removed`, { detail: this });
+        let event = new CustomEvent(`checkout:${this.componentType}:removed`, { detail: this });
         document.dispatchEvent(event);
         super.remove();
     }

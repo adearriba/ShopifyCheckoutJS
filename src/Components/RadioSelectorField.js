@@ -20,7 +20,7 @@ export default class RadioSelectorField extends BaseInputComponent
         if(args.name == null) throw new ReferenceNotDefinedException('args.name');
         if(args.value == null) throw new ReferenceNotDefinedException('args.value');
         if(args.id == null) throw new ReferenceNotDefinedException('args.id');
-        if(args.label == null) throw new ReferenceNotDefinedException('args.label');
+        if(args.label == null && args.innerHTML == null) throw new ReferenceNotDefinedException('args.label || args.innerHTML');
 
         let radioId = args.id;
         let value = args.value;
