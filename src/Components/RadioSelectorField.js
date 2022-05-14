@@ -7,7 +7,7 @@ export default class RadioSelectorField extends BaseInputComponent
         super(args);
 
         let selectors = {
-
+            input: 'input',
         };
 
         let classes = {
@@ -86,5 +86,14 @@ export default class RadioSelectorField extends BaseInputComponent
 
         labelDiv.appendChild(span);
         return labelDiv;
+    }
+
+    get checked(){
+        return this.querySelector(this.selectors.input).checked;
+    }
+
+    set checked(isChecked = true){
+        this.querySelector(this.selectors.input).checked = isChecked;
+        this.changed(new InputEvent('checked:changed'));
     }
 }
