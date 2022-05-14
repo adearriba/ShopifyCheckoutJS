@@ -5,7 +5,7 @@ A little library that will help you manipulate Shopify´s Checkout via JS.
 - [2. $checkout object](#2-checkout-object)
 	- [2.1. Events](#21-events)
 - [3. Components](#3-components)
-	- [3.1. General field methods](#31-general-field-methods)
+	- [3.1. General component methods](#31-general-component-methods)
 	- [3.2. Sections](#32-sections)
 	- [3.3. Radio buttons group](#33-radio-buttons-group)
 - [4. Fields](#4-fields)
@@ -84,7 +84,7 @@ This are events related to interactions with the UI.
 
 # 3. Components
 
-## 3.1. General field methods
+## 3.1. General component methods
 
 **Insert components into the DOM**
 
@@ -97,7 +97,7 @@ $checkout.fields["checkout_billing_address_last_name"].insertAfter(field);
 
 **Watch for changes in components**
 
-When a component changes, the ``checkout:component:changed`` event triggers. Note: In case of fields, a ``checkout:field:changed`` event triggers. For a shorthand, instead of remembering the name of the event, you can use ``onValueChanged(callback)`` for both components and fields. At the same time, you can alwaus use ``on('changed', callback)``.
+When a component changes, the ``checkout:component:changed`` event triggers. Note: In case of fields, a ``checkout:field:changed`` event triggers. For a shorthand, instead of remembering the name of the event, you can use ``onValueChanged(callback)`` for both components and fields. At the same time, you can also use ``on('changed', callback)``.
 
 ```javascript
 field.onValueChanged(function(event){
