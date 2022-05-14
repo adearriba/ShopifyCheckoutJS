@@ -166,5 +166,6 @@ export default class Field extends BaseInputComponent{
     set value(val){
         let input = this.querySelector(this.selectors.input);
         input.value = val;
+        this.changed(new InputEvent('input:changed'));
     }
 }
