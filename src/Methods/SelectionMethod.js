@@ -25,6 +25,10 @@ export default class SelectionMethod extends HTMLDivElement{
         return input;
     }
 
+    get label(){
+        return this.querySelector('.radio__label').textContent;
+    }
+
     get methodData(){
         return this.input.dataset;
     }
@@ -39,5 +43,10 @@ export default class SelectionMethod extends HTMLDivElement{
 
     set checked(boolean){
         this.input.checked = boolean;
+    }
+
+    remove()
+    {
+        this.parentElement.remove()
     }
 }
