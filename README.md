@@ -96,6 +96,7 @@ $checkout.fields["checkout_billing_address_last_name"].insertAfter(field);
 ```
 
 **Watch for changes in components**
+
 When a component changes, the ``checkout:component:changed`` event triggers. Note: In case of fields, a ``checkout:field:changed`` event triggers. For a shorthand, instead of remembering the name of the event, you can use ``onValueChanged(callback)`` for both components and fields. At the same time, you can alwaus use ``on('changed', callback)``.
 
 ```javascript
