@@ -60,11 +60,19 @@ export default class CheckboxField extends Field{
         wrapper.insertBefore(div, label);
     }
 
+    /**
+     * Returns the state of the checkbox
+     * @returns {boolean}
+     */
     get checked(){
         let checkbox = this.querySelector(this.selectors.input);
         return checkbox.checked;
     }
 
+    /**
+     * Sets the state of the checkbox
+     * @param {boolean} checked
+     */
     set checked(checked){
         let checkbox = this.querySelector(this.selectors.input);
         checkbox.checked = checked;

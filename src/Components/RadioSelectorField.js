@@ -3,6 +3,17 @@ import BaseInputComponent from './BaseInputComponent.js';
 
 export default class RadioSelectorField extends BaseInputComponent
 {
+    /**
+     * Creates a RadioSelectorField component
+     * @param {string} args.id Html element ID
+     * @param {string} args.name Field name
+     * @param {string} args.value Radio selector value
+     * @param {string?} args.label Plain text label
+     * @param {string?} args.label Plain text label
+     * @param {string?} args.innerHTML HTML label. (Only if no label is specified)
+     * @returns {RadioSelectorField}
+     * @throws {ReferenceNotDefinedException} For any missing mandatory parameter
+     */
     constructor(args){
         super(args);
 

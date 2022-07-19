@@ -1,6 +1,13 @@
 import BaseComponent from './BaseComponent.js';
 
 export default class SectionComponent extends BaseComponent{
+    /**
+     * Creates a new Section component if passed {title} and {name}.
+     * Creates a Section component from an existing Section if passed a CSS selector as {selector} param.
+     * @public
+     * @param {{title: string, name: string, selector: string }} args 
+     * @returns SectionComponent
+     */
     constructor(args = null)
     {
         super(args);
@@ -66,12 +73,21 @@ export default class SectionComponent extends BaseComponent{
         });
     }
 
+    /**
+     * Add a component to a content DIV inside the section
+     * @param {BaseComponent} component Component to add
+     * @param {number} sectionContentId If section has multiple content DIVs, the index of the content DIV where you want to add the component.
+     */
     addContent(component, sectionContentId = 0)
     {
         if(!component || !(component instanceof BaseComponent)) throw TypeError('Object trying to add is not a component.');
         this.contentDivs[sectionContentId].appendChild(component);
     }
 
+    /**
+     * Add a new content DIV to the section
+     * @returns {number} The content DIV id
+     */
     addSectionContentDiv()
     {
         let contentDiv = document.createElement('div');
@@ -81,18 +97,27 @@ export default class SectionComponent extends BaseComponent{
         return this.contentDivs.length - 1;
     }
 
+    /**
+     * Hide the section
+     */
     hide()
     {
         this.classList.add('hidden-if-js');
         this.isVisible = !this.isVisible;
     }
 
+    /**
+     * Show the section
+     */
     show()
     {
         this.classList.remove('hidden-if-js');
         this.isVisible = !this.isVisible;
     }
 
+    /**
+     * Toggle between hide and show
+     */
     toggle()
     {
         if(this.isVisible) this.hide();

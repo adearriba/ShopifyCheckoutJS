@@ -131,6 +131,10 @@ export default class Field extends BaseInputComponent{
         throw new NotImplementedError();
     }
 
+    /**
+     * Displays an error message for the field.
+     * @param {string} message Error message to display
+     */
     showError(message){
         this.removeError();
         this.classList.add(...this.classes.fieldError);
@@ -144,6 +148,9 @@ export default class Field extends BaseInputComponent{
         }
     }
 
+    /**
+     * Removes the errores for the field.
+     */
     removeError(){
         this.classList.remove(...this.classes.fieldError);
 
@@ -153,6 +160,9 @@ export default class Field extends BaseInputComponent{
         });
     }
 
+    /**
+     * Removes the field from the page and fires the 'removed' event.
+     */
     remove(){
         let event = new CustomEvent(`checkout:${this.componentType}:removed`, { detail: this });
         document.dispatchEvent(event);

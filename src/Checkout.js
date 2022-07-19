@@ -195,6 +195,11 @@ export default class Checkout {
         }        
     }
 
+    /**
+     * Add an event listener for a specific `event`
+     * @param {string} event Event name to listen
+     * @param {string} callback Callback function to call when event triggers
+     */
     on(event, callback){
         document.addEventListener(`checkout:${event}`, callback, false);
     }

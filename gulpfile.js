@@ -2,12 +2,16 @@
 'use strict';
 
 const destFolder = './dist';
+const destNpmFolder = `${destFolder}/npm-package`;
 const srcFolder = './src';
 
 const destfilename = 'checkout.js'
 const destBundlefilename = 'main.js'
 const destFile = `${destFolder}/${destfilename}`;
 const destBundleFile = `${srcFolder}/${destBundlefilename}`;
+
+const packageJson = 'package.json';
+const readme = 'README.md';
 
 const { series, src, dest, watch } = require('gulp');
 const rollup = require('rollup');
@@ -48,8 +52,12 @@ function minifyES5(){
         .pipe(dest(destFolder));
 }
 
+function generateNpmPackage(){
+    return src([destFile, packageJson, readme])
+        .pipe(dest(destNpmFolder));
+}
 
-exports.build = series(build, minify, minifyES5);
+exports.build = series(build, minify, minifyES5, generateNpmPackage);
 exports.default = function(){
     watch(['src/*.js', 'src/*/*.js'], { ignoreInitial: false }, series(build, minify, minifyES5));
 };

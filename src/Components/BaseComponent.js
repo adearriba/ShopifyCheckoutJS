@@ -15,11 +15,21 @@ export default class BaseComponent extends HTMLDivElement{
         });
     }
 
+    /**
+     * Insert the current component after the specified component parameter.
+     * @param {BaseComponent} component 
+     * @throws {TypeError} Object trying to add is not a component
+     */
     insertAfter(component){
         if(!component || !(component instanceof BaseComponent)) throw TypeError('Object trying to add is not a component.');
         this.insertAdjacentElement('afterend', component);
     }
 
+    /**
+     * Insert the current component before the specified component parameter.
+     * @param {BaseComponent} component 
+     * @throws {TypeError} Object trying to add is not a component
+     */
     insertBefore(component){
         if(!component || !(component instanceof BaseComponent)) throw TypeError('Object trying to add is not a component.');
         this.insertAdjacentElement('beforebegin', component);

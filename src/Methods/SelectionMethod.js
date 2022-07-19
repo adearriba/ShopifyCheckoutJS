@@ -14,6 +14,10 @@ export default class SelectionMethod extends HTMLDivElement{
         });
     }
 
+    /**
+     * Add a `text` decription to the selection method
+     * @param {string} text 
+     */
     // eslint-disable-next-line no-unused-vars
     addDescription(text){
         throw new NotImplementedError();
@@ -45,6 +49,9 @@ export default class SelectionMethod extends HTMLDivElement{
         this.input.checked = boolean;
     }
 
+    /**
+     * Remove the selection method
+     */
     remove()
     {
         this.parentElement.remove()

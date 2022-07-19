@@ -25,10 +25,16 @@ export default class PaymentMethod extends SelectionMethod{
         return this.dataset;
     }
 
+    /**
+     * Get the gateway ID value
+     */
     get gatewayId(){
         return this.dataset.selectGateway;
     }
 
+    /**
+     * Get the gateway name value
+     */
     get gatewayName(){
         return this.dataset.gatewayName;
     }
