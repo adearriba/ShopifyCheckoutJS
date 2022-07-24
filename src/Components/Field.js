@@ -1,7 +1,7 @@
 /* eslint-disable constructor-super */
-import NotValidFieldException from '../Exceptions/NotValidFieldException.js';
-import NotImplementedError from '../Exceptions/NotImplementedError.js';
-import BaseInputComponent from './BaseInputComponent.js';
+import {NotValidFieldException} from '../Exceptions/NotValidFieldException.js';
+import {NotImplementedError} from '../Exceptions/NotImplementedError.js';
+import {BaseInputComponent} from './BaseInputComponent.js';
 
 class FieldRetriever {
     retrieve(inputElement){
@@ -40,7 +40,7 @@ class FieldRetriever {
     }
 }
 
-export default class Field extends BaseInputComponent{
+export class Field extends BaseInputComponent{
     constructor(args){
         super({ type: 'field' });
 

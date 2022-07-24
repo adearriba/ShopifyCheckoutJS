@@ -1,6 +1,6 @@
-import BaseComponent from './BaseComponent.js';
+import {BaseComponent} from './BaseComponent.js';
 
-export default class SectionComponent extends BaseComponent{
+export class SectionComponent extends BaseComponent{
     /**
      * Creates a new Section component if passed {title} and {name}.
      * Creates a Section component from an existing Section if passed a CSS selector as {selector} param.

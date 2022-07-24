@@ -1,4 +1,4 @@
-export default class Tooltip extends HTMLDivElement{
+export class Tooltip extends HTMLDivElement{
     constructor(text, fieldId, icon = '#question'){
         let classes = {
             wrapper: ['field__icon'],

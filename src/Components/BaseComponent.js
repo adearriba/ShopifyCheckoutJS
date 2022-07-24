@@ -1,4 +1,4 @@
-export default class BaseComponent extends HTMLDivElement{
+export class BaseComponent extends HTMLDivElement{
     constructor(args = null)
     {
         let componentType = 'component';

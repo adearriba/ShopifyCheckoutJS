@@ -1,6 +1,6 @@
-import Field from './Field.js';
+import {Field} from './Field.js';
 
-export default class DropdownField extends Field{
+export class DropdownField extends Field{
     constructor(args){
         let classes = {
             field: ['field', 'field--show-floating-label'],

@@ -1,6 +1,6 @@
-import BaseComponent from './BaseComponent.js';
+import {BaseComponent} from './BaseComponent.js';
 
-export default class BaseInputComponent extends BaseComponent{
+export class BaseInputComponent extends BaseComponent{
     constructor(args = null)
     {
         super(args);

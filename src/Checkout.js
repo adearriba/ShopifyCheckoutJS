@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
-import NotValidFieldException from './Exceptions/NotValidFieldException.js';
-import ShippingMethod from './Methods/ShippingMethod.js';
-import PaymentMethod from './Methods/PaymentMethod.js';
-import FieldFactory from './Components/FieldFactory.js';
+import {NotValidFieldException} from './Exceptions/NotValidFieldException.js';
+import {ShippingMethod} from './Methods/ShippingMethod.js';
+import {PaymentMethod} from './Methods/PaymentMethod.js';
+import {FieldFactory} from './Components/FieldFactory.js';
 
-export default class Checkout {
+export class Checkout {
     constructor(){
         this.fields = [];
 

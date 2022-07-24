@@ -1,6 +1,6 @@
-import SelectionMethod from "./SelectionMethod";
+import {SelectionMethod} from "./SelectionMethod";
 
-export default class ShippingMethod extends SelectionMethod{
+export class ShippingMethod extends SelectionMethod{
     constructor(element){
         super(element);
         Object.setPrototypeOf(this, ShippingMethod.prototype);

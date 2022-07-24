@@ -1,6 +1,6 @@
-import Field from './Field.js';
+import {Field} from './Field.js';
 
-export default class CheckboxField extends Field{
+export class CheckboxField extends Field{
     constructor(args){
         let selectors = {
             input: 'input[type="checkbox"]',

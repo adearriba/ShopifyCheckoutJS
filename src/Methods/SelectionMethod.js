@@ -1,6 +1,6 @@
-import NotImplementedError from '../Exceptions/NotImplementedError.js';
+import {NotImplementedError} from '../Exceptions/NotImplementedError.js';
 
-export default class SelectionMethod extends HTMLDivElement{
+export class SelectionMethod extends HTMLDivElement{
 
     constructor(element){
         if(!(element instanceof HTMLDivElement)

@@ -1,10 +1,10 @@
-import Field from './Field.js';
-import TextField from './TextField.js';
-import CheckboxField from './CheckboxField.js';
-import DropdownField from './DropdownField.js';
-import NotValidFieldException from '../Exceptions/NotValidFieldException.js';
+import {Field} from './Field.js';
+import {TextField} from './TextField.js';
+import {CheckboxField} from './CheckboxField.js';
+import {DropdownField} from './DropdownField.js';
+import {NotValidFieldException} from '../Exceptions/NotValidFieldException.js';
 
-export default class FieldFactory {
+export class FieldFactory {
     constructor(){ }
 
     createFieldByElement(element){

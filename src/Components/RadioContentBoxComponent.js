@@ -1,8 +1,8 @@
-import ReferenceNotDefinedException from '../Exceptions/ReferenceNotDefinedException.js'
-import RadioSelectorField from './RadioSelectorField.js';
-import BaseInputComponent from './BaseInputComponent.js';
+import {ReferenceNotDefinedException} from '../Exceptions/ReferenceNotDefinedException.js'
+import {RadioSelectorField} from './RadioSelectorField.js';
+import {BaseInputComponent} from './BaseInputComponent.js';
 
-export default class RadioContentBoxComponent extends BaseInputComponent{
+export class RadioContentBoxComponent extends BaseInputComponent{
     constructor(args){
         super();
 

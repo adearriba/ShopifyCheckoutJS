@@ -1,7 +1,7 @@
-import NotValidFieldException from "../Exceptions/NotValidFieldException";
-import SelectionMethod from "./SelectionMethod";
+import {NotValidFieldException} from "../Exceptions/NotValidFieldException";
+import {SelectionMethod} from "./SelectionMethod";
 
-export default class PaymentMethod extends SelectionMethod{
+export class PaymentMethod extends SelectionMethod{
     constructor(element){
         if(!element.dataset.selectGateway) 
             throw new NotValidFieldException();
