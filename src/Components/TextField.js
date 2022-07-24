@@ -1,7 +1,7 @@
-import Field from './Field.js';
-import Tooltip from './Tooltip.js';
+import {Field} from './Field.js';
+import {Tooltip} from './Tooltip.js';
 
-export default class TextField extends Field{
+export class TextField extends Field{
     constructor(args){
         super(args);
         Object.setPrototypeOf(this, TextField.prototype);

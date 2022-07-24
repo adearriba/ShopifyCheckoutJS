@@ -1,11 +1,13 @@
 /* eslint-disable no-undef */
-import NotValidFieldException from './Exceptions/NotValidFieldException.js';
-import ShippingMethod from './Methods/ShippingMethod.js';
-import PaymentMethod from './Methods/PaymentMethod.js';
-import FieldFactory from './Fields/FieldFactory.js';
+import {NotValidFieldException} from './Exceptions/NotValidFieldException.js';
+import {ShippingMethod} from './Methods/ShippingMethod.js';
+import {PaymentMethod} from './Methods/PaymentMethod.js';
+import {FieldFactory} from './Components/FieldFactory.js';
 
-export default class Checkout {
+export class Checkout {
     constructor(){
+        this.fields = [];
+
         this.Steps = {
             INFORMATION: 'contact_information',
             SHIPPING: 'shipping_method',
@@ -27,14 +29,17 @@ export default class Checkout {
             },
         };
 
+        this.lastStep = this._getLastStep();
+        this.currentStep = this._getCurrentStep();
+
         document.addEventListener('page:load', this._onLoad.bind(this), false);
         document.addEventListener('page:change', this._onLoad.bind(this), false);
         document.addEventListener('checkout:field:created', this._fieldCreated.bind(this), false);
         document.addEventListener('checkout:field:removed', this._fieldRemoved.bind(this), false);
 
-        this.lastStep = this._getLastStep();
-        this.currentStep = this._getCurrentStep();
-        this.fields = [];
+        let form = document.querySelector('[type=submit]').parentElement.closest("form");
+        form.addEventListener('submit', this._onContinue.bind(this), true);
+
         this.fields = this._getFields();
     }
 
@@ -54,7 +59,7 @@ export default class Checkout {
     _getLastStep(){
         let lastStep = sessionStorage.getItem('step');
 
-        if(lastStep == null) {
+        if(lastStep == null && document.referrer && document.referrer.length > 2) {
             let url = new URL(document.referrer);
             lastStep = url.pathname;
         }
@@ -118,6 +123,10 @@ export default class Checkout {
         return stockProblemList;
     }
 
+    _onContinue(event){
+        this._triggerEvent('continue', { innerEvent: event });
+    }
+
     _onLoad(event){
         try{
             this._triggerEvent('load');
@@ -165,10 +174,14 @@ export default class Checkout {
     _fieldCreated(event){        
         let field = event.detail;
         let input = field.querySelector(this.selectors.fields);
-        let hasInputAlready = Object.prototype.hasOwnProperty.call(this.fields, input.id);
 
-        if(this.fields && !hasInputAlready){
-            this.fields[input.id] = field;
+        if(input!=null)
+        {
+            let hasInputAlready = Object.prototype.hasOwnProperty.call(this.fields, input.id);
+
+            if(this.fields && !hasInputAlready){
+                this.fields[input.id] = field;
+            }
         }
     }
 
@@ -182,6 +195,11 @@ export default class Checkout {
         }        
     }
 
+    /**
+     * Add an event listener for a specific `event`
+     * @param {string} event Event name to listen
+     * @param {string} callback Callback function to call when event triggers
+     */
     on(event, callback){
         document.addEventListener(`checkout:${event}`, callback, false);
     }

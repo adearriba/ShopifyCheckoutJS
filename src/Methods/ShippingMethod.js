@@ -1,6 +1,6 @@
-import SelectionMethod from "./SelectionMethod";
+import {SelectionMethod} from "./SelectionMethod";
 
-export default class ShippingMethod extends SelectionMethod{
+export class ShippingMethod extends SelectionMethod{
     constructor(element){
         super(element);
         Object.setPrototypeOf(this, ShippingMethod.prototype);
@@ -22,10 +22,16 @@ export default class ShippingMethod extends SelectionMethod{
         span.appendChild(desc);
     }
 
+    /**
+     * Get the Shipping rate value
+     */
     get shippingRate(){
         return this.methodData.checkoutTotalShippingCents/100;
     }
 
+    /**
+     * Get the subtotal price value
+     */
     get subtotalPrice(){
         return this.methodData.checkoutSubtotalPriceCents/100;
     }

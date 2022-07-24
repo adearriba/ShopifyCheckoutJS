@@ -1,6 +1,6 @@
-import NotImplementedError from '../Exceptions/NotImplementedError.js';
+import {NotImplementedError} from '../Exceptions/NotImplementedError.js';
 
-export default class SelectionMethod extends HTMLDivElement{
+export class SelectionMethod extends HTMLDivElement{
 
     constructor(element){
         if(!(element instanceof HTMLDivElement)
@@ -14,6 +14,10 @@ export default class SelectionMethod extends HTMLDivElement{
         });
     }
 
+    /**
+     * Add a `text` decription to the selection method
+     * @param {string} text 
+     */
     // eslint-disable-next-line no-unused-vars
     addDescription(text){
         throw new NotImplementedError();
@@ -23,6 +27,10 @@ export default class SelectionMethod extends HTMLDivElement{
         let input = this.querySelector('input');
         if(!input) return Error(`No input found for the ${this.type} method`);
         return input;
+    }
+
+    get label(){
+        return this.querySelector('.radio__label').textContent;
     }
 
     get methodData(){
@@ -39,5 +47,13 @@ export default class SelectionMethod extends HTMLDivElement{
 
     set checked(boolean){
         this.input.checked = boolean;
+    }
+
+    /**
+     * Remove the selection method
+     */
+    remove()
+    {
+        this.parentElement.remove()
     }
 }
