@@ -43,6 +43,8 @@ The `$checkout` object is created to help with the different tasks manipulating 
 ## 2.1. Events
 To register handlers for common events, you can use the `$checkout.on(event, callback)` function.
 ```javascript
+import { $checkout } from '@adearriba/shopify-checkout/checkout.js';
+
 $checkout.on('load', (e) => { console.log(e); })
 
 $checkout.on('load:information', function(e) { 
