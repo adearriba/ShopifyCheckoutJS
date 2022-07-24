@@ -131,12 +131,17 @@ In Shopify's checkout, you'll encounter different sections within a page. In cas
 
 **Get a section that already exists**
 ```javascript
+//always import the corresponding component
+import {SectionComponent} from '@adearriba/shopify-checkout/checkout';
+
 //Using a css selector, you can create a reference to an existing section
 let shippingFormSection = new SectionComponent({selector: '.section--shipping-address'});
 ```
 
 **Create a new section and add it before/after another one**
 ```javascript
+import {SectionComponent} from '@adearriba/shopify-checkout/checkout';
+
 //Create a new Section component
 let section = new SectionComponent({name: 'shipping-method', title: 'Shipping method'});
 
@@ -149,6 +154,9 @@ shippingFormSection.insertAfter(section);
 
 **Create a radiobox in a section**
 ```javascript
+//Import both components together
+import {SectionComponent, RadioContentBoxComponent} from '@adearriba/shopify-checkout/checkout';
+
 //Create a new RadioContentBoxComponent
 var radioBox = new RadioContentBoxComponent({name: 'RadioContentBox' });
 
@@ -222,6 +230,8 @@ field.removeError();
 
 **Create TextFields**
 ```javascript
+import {TextField} from '@adearriba/shopify-checkout/checkout';
+
 var field = new TextField({
 	name:'dni',
 	//Optional properties
@@ -251,6 +261,8 @@ $checkout.fields["checkout_billing_address_phone"].insertBefore(field);
 
 **Create Checkbox**
 ```javascript
+import {CheckboxField} from '@adearriba/shopify-checkout/checkout';
+
 var field = new CheckboxField({
 	name:'dni', 
 	//Optional properties
@@ -269,6 +281,8 @@ console.log(field.checked);
 
 **Create a dropdown/select**
 ```javascript
+import {DropdownField} from '@adearriba/shopify-checkout/checkout';
+
 var select = new DropdownField({
     name: 'selections',
     options: [

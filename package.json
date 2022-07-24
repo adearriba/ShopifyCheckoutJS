@@ -1,11 +1,13 @@
 {
   "name": "@adearriba/shopify-checkout",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A javascript library to help customize Shopify checkout page",
   "main": "checkout.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "publish": "npm publish /dist/npm-package"
+    "gulp-build": "gulp build",
+    "npm-publish": "npm publish ./dist/npm-package",
+    "pub": "npm run gulp-build && npm run npm-publish"
   },
   "repository": {
     "type": "git",
