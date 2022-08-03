@@ -1,6 +1,8 @@
 # ShopifyCheckoutJS <!-- omit in toc -->
 A little library that will help you manipulate Shopify´s Checkout via JS.
 
+> **IMPORTANT:** Shopify Plus is needed. The resulting JS needs to be included in checkout.liquid file which is only available to Shopify Plus stores.
+
 - [Other versions](#other-versions)
 - [1. Install](#1-install)
 - [2. $checkout object](#2-checkout-object)
