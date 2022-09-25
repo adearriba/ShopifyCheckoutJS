@@ -52,8 +52,6 @@ export class Checkout {
         const fieldNodes = document.querySelectorAll(this.selectors.inputs);
         const fieldFactory = new FieldFactory();
         fieldNodes.forEach(el => {
-            let field = fieldFactory.createFieldByElement(el);
-            if (field != null) fields[el.id] = field;
             try{
                 let field = fieldFactory.createFieldByElement(el);
                 if (field != null) fields[el.id] = field;
