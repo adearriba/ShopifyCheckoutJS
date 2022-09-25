@@ -37,9 +37,12 @@ export class Checkout {
         document.addEventListener('checkout:field:created', this._fieldCreated.bind(this), false);
         document.addEventListener('checkout:field:removed', this._fieldRemoved.bind(this), false);
 
-        let form = document.querySelector('[type=submit]').parentElement.closest("form");
-        form.addEventListener('submit', this._onContinue.bind(this), true);
-
+        if(document.querySelector('[type=submit]'))
+        {
+            let form = document.querySelector('[type=submit]').parentElement.closest("form");
+            form.addEventListener('submit', this._onContinue.bind(this), true);
+        }
+        
         this.fields = this._getFields();
     }
 
