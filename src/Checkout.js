@@ -54,6 +54,12 @@ export class Checkout {
         fieldNodes.forEach(el => {
             let field = fieldFactory.createFieldByElement(el);
             if (field != null) fields[el.id] = field;
+            try{
+                let field = fieldFactory.createFieldByElement(el);
+                if (field != null) fields[el.id] = field;
+            }catch(error){
+                console.error(error);
+            }
         });
 
         return fields;
