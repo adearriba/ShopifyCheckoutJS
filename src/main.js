@@ -1,4 +1,6 @@
 import {Checkout} from './Checkout.js';
+import {BaseComponent} from './Components/BaseComponent';
+import {BaseInputComponent} from './Components/BaseInputComponent';
 import {RadioContentBoxComponent} from './Components/RadioContentBoxComponent.js';
 import {SectionComponent} from './Components/SectionComponent.js';
 import {CheckboxField} from './Components/CheckboxField.js';
@@ -18,4 +20,6 @@ export {
     RadioContentBoxComponent,
     ShippingMethod,
     PaymentMethod,
+    BaseComponent,
+    BaseInputComponent
 }

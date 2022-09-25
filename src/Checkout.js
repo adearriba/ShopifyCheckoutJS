@@ -37,9 +37,12 @@ export class Checkout {
         document.addEventListener('checkout:field:created', this._fieldCreated.bind(this), false);
         document.addEventListener('checkout:field:removed', this._fieldRemoved.bind(this), false);
 
-        let form = document.querySelector('[type=submit]').parentElement.closest("form");
-        form.addEventListener('submit', this._onContinue.bind(this), true);
-
+        if(document.querySelector('[type=submit]'))
+        {
+            let form = document.querySelector('[type=submit]').parentElement.closest("form");
+            form.addEventListener('submit', this._onContinue.bind(this), true);
+        }
+        
         this.fields = this._getFields();
     }
 
@@ -49,8 +52,12 @@ export class Checkout {
         const fieldNodes = document.querySelectorAll(this.selectors.inputs);
         const fieldFactory = new FieldFactory();
         fieldNodes.forEach(el => {
-            let field = fieldFactory.createFieldByElement(el);
-            if (field != null) fields[el.id] = field;
+            try{
+                let field = fieldFactory.createFieldByElement(el);
+                if (field != null) fields[el.id] = field;
+            }catch(error){
+                console.error(error);
+            }
         });
 
         return fields;
